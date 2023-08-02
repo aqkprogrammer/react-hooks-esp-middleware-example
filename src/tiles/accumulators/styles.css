@@ -1,0 +1,84 @@
+.accumulatorsTile.internal {
+  background-color: black;
+  color: white;
+}
+
+.accumulatorsTile.external {
+  background-color: lightgray;
+}
+
+.accumulatorsTile.badger {
+  background-color: lightgray;
+  background-image: linear-gradient(
+    45deg,
+    #2b2b2b 20%,
+    #d4d4d4 20%,
+    #d4d4d4 50%,
+    #2b2b2b 50%,
+    #2b2b2b 70%,
+    #d4d4d4 70%,
+    #d4d4d4 100%
+  );
+  background-size: 140px 140px;
+}
+
+.accumulatorsTile.loggedIn {
+  border: lightgreen 0.3em solid;
+}
+
+.accumulatorsTile > h1 {
+  font-size: 1.3em;
+  padding: 0.3em;
+  border-bottom: 0.2em solid rgba(0, 0, 0, 0.1);
+  margin-bottom: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.accumulatorsTile.loggedIn > h1 span {
+  font-size: 0.7em;
+  margin-right: 0.5em;
+}
+
+.accumulatorsForm {
+  padding: 1em;
+}
+
+.accumulatorsForm fieldset {
+  border: none;
+}
+
+.accumulatorsForm button {
+  display: inline-block;
+  margin: 0 0.3em;
+}
+
+.accumulatorList {
+  padding: 0 1em 1em;
+}
+
+.accumulatorList h3 {
+  margin-top: 0;
+}
+
+.accumulatorList li {
+  padding: 0.2em;
+}
+
+.accumulatorList li button {
+  margin-left: 1em;
+}
+
+.accumulatorsFooter {
+  padding: 1em;
+  border: 0.1em solid red;
+}
+
+.accumulatorsFooter .warn {
+  color: red;
+}
+
+.keyIndicator {
+  font-style: italic;
+}

@@ -1,0 +1,86 @@
+.workspace {
+  background-color: rgb(51, 89, 102);
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.workspace > h1 {
+  color: whitesmoke;
+  font-size: 1.3em;
+  padding: 0.3em;
+  border-bottom: 0.2em solid rgb(13, 36, 44);
+  margin-bottom: 0;
+}
+
+.workspace.internal > h1 {
+  color: black;
+}
+
+.workspaceForm {
+  padding: 0.5em 1em 0;
+}
+
+.workspaceForm fieldset {
+  border: none;
+  color: whitesmoke;
+}
+
+.workspace .login input {
+  margin-right: 0.4em;
+}
+
+.workspace .login button {
+  margin-right: 0.4em;
+}
+
+.workspace .login .userToken {
+  padding: 1em 0 0;
+  color: lightgreen;
+}
+
+.workspace .theme span {
+  margin-right: 1em;
+}
+
+.workspace.internal .theme button.internal {
+  border: rgb(23, 164, 230) 0.2em solid;
+}
+
+.workspace.external .theme button.external {
+  border: rgb(23, 164, 230) 0.2em solid;
+}
+
+.workspace.badger .theme button.badger {
+  border: rgb(23, 164, 230) 0.2em solid;
+}
+
+.workspace.internal .theme button {
+  background-color: black;
+  color: white;
+}
+
+.workspace.badger .theme button {
+  color: white;
+  font-weight: bold;
+  text-shadow: 2px 2px black;
+  background-color: lightgray;
+  background-image: linear-gradient(
+    45deg,
+    #2b2b2b 20%,
+    #d4d4d4 20%,
+    #d4d4d4 50%,
+    #2b2b2b 50%,
+    #2b2b2b 70%,
+    #d4d4d4 70%,
+    #d4d4d4 100%
+  );
+  background-size: 30px 30px;
+}
+
+.workspaceTiles {
+  padding: 0 1em 1em;
+}
+
+.inputError {
+  border: 0.1em solid red;
+  background-color: rgb(255, 170, 170);
+}
