@@ -61,7 +61,7 @@ export default function LargeListDemo() {
         </div>
       </Panel>
       <RenderCount label="Table">
-        <div className="perf-table-wrap">
+        <div className="perf-table-wrap" role="region" aria-label="Rendered rows" tabIndex={0}>
           <table className="perf-table">
             <caption className="visually-hidden">
               {rows.length} people sorted by {sortKey}

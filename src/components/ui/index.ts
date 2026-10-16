@@ -4,6 +4,7 @@ export { Callout, type CalloutProps } from './Callout';
 export { EventLog, type EventLogProps } from './EventLog';
 export { Panel, type PanelProps } from './Panel';
 export { RenderCount, type RenderCountProps } from './RenderCount';
+export { ScrollArea, type ScrollAreaProps } from './ScrollArea';
 export { show } from './show';
 export { TextField, type TextFieldProps } from './TextField';
 export { useEventLog, type LogEntry } from './useEventLog';

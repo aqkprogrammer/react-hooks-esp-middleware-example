@@ -1,5 +1,5 @@
 import { useId, useState } from 'react';
-import { Badge, Button, Callout, Panel, TextField } from '../../../components/ui';
+import { Badge, Button, Callout, Panel, ScrollArea, TextField } from '../../../components/ui';
 import { useFetch, usePagination } from '../../../hooks';
 import './UsePaginationDemo.css';
 
@@ -73,16 +73,18 @@ export default function UsePaginationDemo() {
             {result.error.message}
           </Callout>
         ) : null}
-        <ul className="list" aria-label="Products" aria-busy={result.status === 'pending'}>
-          {(data?.items ?? []).map((product) => (
-            <li key={product.id} className="spread">
-              <span>{product.name}</span>
-              <span className="muted small">
-                {product.category} · ${product.price.toFixed(2)}
-              </span>
-            </li>
-          ))}
-        </ul>
+        <ScrollArea label="Products">
+          <ul className="list" aria-label="Products" aria-busy={result.status === 'pending'}>
+            {(data?.items ?? []).map((product) => (
+              <li key={product.id} className="spread">
+                <span>{product.name}</span>
+                <span className="muted small">
+                  {product.category} · ${product.price.toFixed(2)}
+                </span>
+              </li>
+            ))}
+          </ul>
+        </ScrollArea>
         <nav aria-label="Pagination" className="row">
           <Button size="sm" onClick={pager.previous} disabled={!pager.hasPrevious}>
             Previous

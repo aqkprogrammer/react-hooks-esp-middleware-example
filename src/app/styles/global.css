@@ -198,6 +198,14 @@ samp {
 .list > li.active {
   background: var(--accent-soft);
 }
+.scroll-area {
+  overflow: auto;
+  border-radius: var(--radius-sm);
+}
+.scroll-area > .list {
+  max-height: none;
+  overflow: visible;
+}
 .kbd {
   display: inline-block;
   min-width: 1.6em;

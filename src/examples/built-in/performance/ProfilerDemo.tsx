@@ -1,5 +1,5 @@
 import { Profiler, useState, useSyncExternalStore, type ProfilerOnRenderCallback } from 'react';
-import { Button, Callout, Panel, TextField } from '../../../components/ui';
+import { Button, Callout, Panel, ScrollArea, TextField } from '../../../components/ui';
 import { filterRows, makeRows } from './workload';
 import './performance.css';
 
@@ -86,11 +86,13 @@ function SearchPanel() {
         onChange={(event) => setQuery(event.target.value)}
       />
       <p className="small muted">{rows.length} matches</p>
-      <ul className="list" aria-label="Profiled results">
-        {rows.slice(0, 200).map((row) => (
-          <li key={row.id}>{row.name}</li>
-        ))}
-      </ul>
+      <ScrollArea label="Profiled results">
+        <ul className="list" aria-label="Profiled results">
+          {rows.slice(0, 200).map((row) => (
+            <li key={row.id}>{row.name}</li>
+          ))}
+        </ul>
+      </ScrollArea>
     </Panel>
   );
 }
@@ -114,7 +116,7 @@ function ProfilerReport({ store }: { store: SampleStore }) {
       title="onRender samples (newest first)"
       description="actualDuration = time spent rendering this commit; baseDuration = estimated cost of re-rendering the whole subtree without memoisation."
     >
-      <div className="perf-table-wrap">
+      <div className="perf-table-wrap" role="region" aria-label="Render timings" tabIndex={0}>
         <table className="perf-table">
           <caption className="visually-hidden">Profiler samples</caption>
           <thead>

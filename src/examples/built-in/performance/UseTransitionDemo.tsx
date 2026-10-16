@@ -1,5 +1,5 @@
 import { memo, useId, useState, useTransition } from 'react';
-import { Badge, Button, Callout, Panel, TextField } from '../../../components/ui';
+import { Badge, Button, Callout, Panel, ScrollArea, TextField } from '../../../components/ui';
 import { filterRows, makeRows, simulateWork, type Row } from './workload';
 import './performance.css';
 
@@ -95,11 +95,13 @@ function SlowTabs() {
 function SlowPosts({ msPerPost }: { msPerPost: number }) {
   const posts = Array.from({ length: 200 }, (_, index) => index + 1);
   return (
-    <ul className="list" aria-label="Posts">
-      {posts.map((id) => (
-        <SlowPost key={id} id={id} msPerPost={msPerPost} />
-      ))}
-    </ul>
+    <ScrollArea label="Posts">
+      <ul className="list" aria-label="Posts">
+        {posts.map((id) => (
+          <SlowPost key={id} id={id} msPerPost={msPerPost} />
+        ))}
+      </ul>
+    </ScrollArea>
   );
 }
 
@@ -151,11 +153,13 @@ const ResultList = memo(function ResultList({ query }: { query: string }) {
   return (
     <>
       <p className="small muted">{rows.length} people match</p>
-      <ul className="list" aria-label="People">
-        {rows.map((row) => (
-          <ResultRow key={row.id} row={row} />
-        ))}
-      </ul>
+      <ScrollArea label="People">
+        <ul className="list" aria-label="People">
+          {rows.map((row) => (
+            <ResultRow key={row.id} row={row} />
+          ))}
+        </ul>
+      </ScrollArea>
     </>
   );
 });

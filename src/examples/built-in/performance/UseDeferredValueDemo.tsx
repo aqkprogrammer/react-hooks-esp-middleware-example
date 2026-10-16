@@ -1,5 +1,5 @@
 import { memo, useDeferredValue, useState } from 'react';
-import { Badge, Button, Callout, Panel, TextField } from '../../../components/ui';
+import { Badge, Button, Callout, Panel, ScrollArea, TextField } from '../../../components/ui';
 import { filterRows, makeRows, simulateWork, type Row } from './workload';
 import './performance.css';
 
@@ -61,11 +61,13 @@ const SlowResults = memo(function SlowResults({ query }: { query: string }) {
       <p className="small muted">
         {rows.length} matches for “{query}”
       </p>
-      <ul className="list" aria-label="Search results">
-        {rows.slice(0, 400).map((row) => (
-          <SlowRow key={row.id} row={row} />
-        ))}
-      </ul>
+      <ScrollArea label="Search results">
+        <ul className="list" aria-label="Search results">
+          {rows.slice(0, 400).map((row) => (
+            <SlowRow key={row.id} row={row} />
+          ))}
+        </ul>
+      </ScrollArea>
     </>
   );
 });

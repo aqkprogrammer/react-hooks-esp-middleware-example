@@ -32,7 +32,7 @@ export default function StateManagementComparisonDemo() {
       <p className="small muted" role="status">
         {rows.length} of {approaches.length} approaches shown.
       </p>
-      <div className="smc-scroll">
+      <div className="smc-scroll" role="region" aria-label="Comparison table" tabIndex={0}>
         <table className="smc-table">
           <caption className="visually-hidden">State management approaches compared</caption>
           <thead>

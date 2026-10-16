@@ -1,5 +1,5 @@
 import { memo, useDeferredValue, useEffect, useState } from 'react';
-import { Callout, Panel, RenderCount, TextField } from '../../../components/ui';
+import { Callout, Panel, RenderCount, ScrollArea, TextField } from '../../../components/ui';
 import { filterRows, makeRows, simulateWork } from './workload';
 import './performance.css';
 
@@ -72,11 +72,13 @@ const ResultsList = memo(function ResultsList({ label, query }: { label: string;
       <p className="small">
         {rows.length} matches for “{query}”
       </p>
-      <ul className="list" aria-label={label}>
-        {rows.slice(0, 150).map((row) => (
-          <SlowItem key={row.id} name={row.name} />
-        ))}
-      </ul>
+      <ScrollArea label={label}>
+        <ul className="list" aria-label={label}>
+          {rows.slice(0, 150).map((row) => (
+            <SlowItem key={row.id} name={row.name} />
+          ))}
+        </ul>
+      </ScrollArea>
     </RenderCount>
   );
 });

@@ -51,7 +51,8 @@ Library code (`src/hooks`, `src/middleware`) must never import from
 - One file per demo, `PascalCaseDemo.tsx`, **default export** a component with no props.
 - Use the UI kit (`src/components/ui`): `Button`, `Panel`, `TextField`,
   `ValueTable` + `show()`, `EventLog` + `useEventLog()`, `Callout`, `Badge`,
-  `RenderCount`. Layout classes: `stack`, `row`, `grid`, `spread`, `card`,
+  `RenderCount`, `ScrollArea` (use it for any scrollable content so keyboard
+  users can scroll it). Layout classes: `stack`, `row`, `grid`, `spread`, `card`,
   `list`, `kbd`, `muted`, `mono`, `small`, `demo-surface`, `progress`,
   `visually-hidden`. Colours come from CSS variables (`var(--accent)` etc.) —
   never hard-code colours, so light and dark themes both work.
