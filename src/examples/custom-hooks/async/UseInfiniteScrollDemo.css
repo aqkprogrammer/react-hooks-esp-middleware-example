@@ -1,0 +1,30 @@
+.use-infinite-scroll-demo-viewport {
+  max-height: 320px;
+  overflow: auto;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--bg-elevated);
+}
+
+.use-infinite-scroll-demo-viewport:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
+}
+
+.use-infinite-scroll-demo-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.use-infinite-scroll-demo-list > li {
+  padding: 0.45rem 0.75rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.use-infinite-scroll-demo-sentinel {
+  min-height: 2.5rem;
+  display: grid;
+  place-items: center;
+  color: var(--fg-muted);
+}

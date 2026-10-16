@@ -1,0 +1,31 @@
+.dialog-demo {
+  width: min(28rem, calc(100vw - 2rem));
+  padding: 1.25rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--bg-elevated);
+  color: var(--fg);
+  box-shadow: var(--shadow);
+}
+/* ::backdrop inherits custom properties from the dialog in current browsers. */
+.dialog-demo::backdrop {
+  background: color-mix(in srgb, var(--fg) 40%, transparent);
+}
+.dialog-demo-title {
+  margin: 0;
+  font-size: 1.1rem;
+}
+.dialog-demo-actions {
+  justify-content: flex-end;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .dialog-demo[open] {
+    animation: dialog-demo-in 140ms ease-out;
+  }
+}
+@keyframes dialog-demo-in {
+  from {
+    transform: translateY(8px);
+    opacity: 0;
+  }
+}

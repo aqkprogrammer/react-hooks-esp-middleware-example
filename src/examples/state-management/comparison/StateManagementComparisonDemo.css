@@ -1,0 +1,28 @@
+.smc-scroll {
+  overflow-x: auto;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+}
+.smc-table {
+  width: 100%;
+  min-width: 900px;
+  border-collapse: collapse;
+  font-size: 0.875rem;
+}
+.smc-table th,
+.smc-table td {
+  padding: 0.45rem 0.6rem;
+  border-bottom: 1px solid var(--border);
+  text-align: start;
+  vertical-align: top;
+}
+.smc-table thead th {
+  background: var(--bg-sunken);
+}
+.smc-table tbody th {
+  white-space: nowrap;
+}
+.smc-table tbody tr:last-child th,
+.smc-table tbody tr:last-child td {
+  border-bottom: none;
+}

@@ -1,0 +1,41 @@
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 10
+    groups:
+      react:
+        patterns: ['react', 'react-dom', '@types/react', '@types/react-dom']
+      testing:
+        patterns:
+          [
+            'vitest',
+            '@vitest/*',
+            '@testing-library/*',
+            'jsdom',
+            'msw',
+            '@playwright/test',
+            '@axe-core/*',
+            'axe-core',
+          ]
+      lint:
+        patterns:
+          ['eslint', '@eslint/*', 'eslint-plugin-*', 'typescript-eslint', 'prettier', 'globals']
+      state-libraries:
+        patterns:
+          [
+            '@reduxjs/toolkit',
+            'react-redux',
+            'zustand',
+            'jotai',
+            '@tanstack/react-query',
+            'swr',
+            'rxjs',
+            'immer',
+          ]
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: monthly

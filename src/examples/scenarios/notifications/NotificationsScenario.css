@@ -1,0 +1,145 @@
+.toast-viewport {
+  position: fixed;
+  z-index: 50;
+  inset-block-end: 1rem;
+  inset-inline-end: 1rem;
+  display: grid;
+  gap: 0.5rem;
+  width: min(22rem, calc(100vw - 2rem));
+  pointer-events: none;
+}
+
+.toast-viewport:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 4px;
+}
+
+.toast-stack {
+  display: grid;
+  gap: 0.5rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.toast,
+.toast-footer {
+  pointer-events: auto;
+}
+
+.toast {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 0.5rem;
+  padding: 0.75rem 0.75rem 0.9rem;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-inline-start: 4px solid var(--accent);
+  border-radius: var(--radius);
+  background: var(--bg-elevated);
+  color: var(--fg);
+  box-shadow: var(--shadow);
+  animation: toast-slide-in 180ms ease-out;
+}
+
+.toast-viewport[data-motion='reduce'] .toast {
+  animation-name: toast-fade-in;
+}
+
+.toast[data-tone='success'] {
+  border-inline-start-color: var(--success);
+}
+
+.toast[data-tone='warning'] {
+  border-inline-start-color: var(--warn);
+}
+
+.toast[data-tone='error'] {
+  border-inline-start-color: var(--danger);
+  background: var(--danger-soft);
+}
+
+.toast-body {
+  display: grid;
+  gap: 0.25rem;
+}
+
+.toast-tone {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--fg-muted);
+}
+
+.toast-title {
+  font-weight: 600;
+}
+
+.toast-description {
+  margin: 0;
+  color: var(--fg-muted);
+  font-size: 0.9rem;
+}
+
+.toast-close {
+  align-self: start;
+  font-size: 1.1rem;
+  line-height: 1;
+}
+
+.toast-countdown {
+  position: absolute;
+  inset-inline: 0;
+  inset-block-end: 0;
+  height: 3px;
+  background: var(--accent);
+  transform-origin: left center;
+  animation: toast-countdown var(--toast-duration, 5000ms) linear forwards;
+}
+
+.toast[data-paused] .toast-countdown {
+  animation-play-state: paused;
+}
+
+.toast-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.35rem 0.6rem;
+  border-radius: var(--radius-sm);
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  font-size: 0.875rem;
+}
+
+@keyframes toast-slide-in {
+  from {
+    opacity: 0;
+    transform: translateY(0.75rem);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes toast-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes toast-countdown {
+  from {
+    transform: scaleX(1);
+  }
+  to {
+    transform: scaleX(0);
+  }
+}

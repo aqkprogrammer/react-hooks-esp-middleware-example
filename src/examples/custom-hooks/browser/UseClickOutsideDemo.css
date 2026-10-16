@@ -1,0 +1,27 @@
+.use-click-outside-demo-anchor {
+  position: relative;
+  display: inline-block;
+}
+.use-click-outside-demo-popover {
+  position: absolute;
+  z-index: 5;
+  top: calc(100% + 0.4rem);
+  left: 0;
+  min-width: 240px;
+  padding: 0.75rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--bg-elevated);
+  box-shadow: var(--shadow);
+}
+.use-click-outside-demo-popover fieldset {
+  margin: 0;
+  padding: 0;
+  border: none;
+}
+.use-click-outside-demo-popover label {
+  display: flex;
+  gap: 0.4rem;
+  align-items: center;
+  padding: 0.15rem 0;
+}

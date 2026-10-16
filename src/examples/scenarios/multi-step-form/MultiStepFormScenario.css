@@ -1,0 +1,57 @@
+.wizard-steps {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.25rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.wizard-step-link {
+  padding: 0;
+  border: none;
+  background: none;
+  color: var(--accent);
+  font: inherit;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.wizard-step-label {
+  color: var(--fg-muted);
+}
+
+.wizard-step-label[aria-current='step'] {
+  color: var(--fg);
+  font-weight: 700;
+}
+
+.wizard-heading {
+  margin: 0;
+}
+
+.wizard-heading:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 4px;
+}
+
+.wizard-summary {
+  display: grid;
+  gap: 0.35rem;
+  margin: 0;
+}
+
+.wizard-summary > div {
+  display: grid;
+  grid-template-columns: minmax(7rem, max-content) 1fr;
+  gap: 0.75rem;
+}
+
+.wizard-summary dt {
+  color: var(--fg-muted);
+}
+
+.wizard-summary dd {
+  margin: 0;
+  overflow-wrap: anywhere;
+}

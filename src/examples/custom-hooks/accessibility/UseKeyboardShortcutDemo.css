@@ -1,0 +1,15 @@
+.shortcuts-demo-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 0.5rem;
+}
+.shortcuts-demo-table th,
+.shortcuts-demo-table td {
+  padding: 0.4rem 0.6rem;
+  border-bottom: 1px solid var(--border);
+  text-align: left;
+}
+.shortcuts-demo-table th {
+  background: var(--bg-sunken);
+  font-size: 0.875rem;
+}

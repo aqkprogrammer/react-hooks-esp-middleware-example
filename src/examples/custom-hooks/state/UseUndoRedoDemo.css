@@ -1,0 +1,26 @@
+.use-undo-redo-grid {
+  display: grid;
+  grid-template-columns: repeat(8, 2rem);
+  gap: 2px;
+  width: max-content;
+  padding: 2px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--border);
+}
+.use-undo-redo-cell {
+  width: 2rem;
+  height: 2rem;
+  padding: 0;
+  border: none;
+  background: var(--bg-elevated);
+  cursor: pointer;
+}
+.use-undo-redo-cell[aria-pressed='true'] {
+  background: var(--accent);
+}
+.use-undo-redo-cell:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 1px;
+  position: relative;
+}

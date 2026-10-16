@@ -1,0 +1,26 @@
+.search-with-cancellation-controls {
+  display: grid;
+  gap: 0.75rem;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: start;
+}
+
+.search-with-cancellation-status {
+  margin: 0;
+  min-height: 1.5em;
+  font-weight: 600;
+}
+
+.search-with-cancellation-results {
+  transition: opacity 120ms ease-out;
+}
+
+.search-with-cancellation-stale {
+  opacity: 0.6;
+}
+
+.search-with-cancellation-mark {
+  background: var(--warn-soft);
+  color: inherit;
+  border-radius: 2px;
+}

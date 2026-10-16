@@ -1,0 +1,12 @@
+.use-ref-canvas-demo-canvas {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 640 / 260;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--bg-elevated);
+  color: var(--accent);
+  touch-action: none;
+  cursor: crosshair;
+}

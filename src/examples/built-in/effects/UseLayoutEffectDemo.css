@@ -1,0 +1,25 @@
+.use-layout-effect-demo-stage {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  min-height: 200px;
+  padding: 0.25rem;
+  border: 1px dashed var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--bg-sunken);
+}
+
+.use-layout-effect-demo-tooltip {
+  position: absolute;
+  z-index: 1;
+  max-width: 16rem;
+  padding: 0.5rem 0.7rem;
+  border-radius: var(--radius-sm);
+  background: var(--fg);
+  color: var(--bg);
+  font-size: 0.875rem;
+  box-shadow: var(--shadow);
+  pointer-events: none;
+}

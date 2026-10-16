@@ -1,0 +1,21 @@
+.undo-grid {
+  display: grid;
+  gap: 0.25rem;
+  width: max-content;
+  max-width: 100%;
+}
+.undo-cell {
+  width: 2.25rem;
+  height: 2.25rem;
+  padding: 0;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  background: var(--bg-elevated);
+  color: var(--accent-fg);
+  font: inherit;
+  cursor: pointer;
+}
+.undo-cell[aria-pressed='true'] {
+  background: var(--accent);
+  border-color: var(--accent);
+}

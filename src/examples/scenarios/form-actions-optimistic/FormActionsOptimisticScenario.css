@@ -1,0 +1,11 @@
+.form-actions-input {
+  flex: 1 1 14rem;
+}
+
+.form-actions-status {
+  min-width: 10rem;
+}
+
+.form-actions-pending {
+  background: var(--bg-sunken);
+}

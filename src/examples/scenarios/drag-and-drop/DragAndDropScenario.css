@@ -1,0 +1,81 @@
+.sortable-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.sortable-item {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.4rem 0.6rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--bg-elevated);
+  transition: transform 160ms ease;
+}
+
+/* The dragged item follows the pointer exactly: no transition on it. */
+.sortable-item-lifted {
+  position: relative;
+  z-index: 1;
+  transition: none;
+  border-color: var(--accent);
+  box-shadow: var(--shadow);
+  background: var(--accent-soft);
+}
+
+.sortable-item-grabbed {
+  border-color: var(--accent);
+  outline: 2px dashed var(--accent);
+  outline-offset: 2px;
+}
+
+/* Reduced motion: neighbours jump into place instead of sliding. */
+.sortable-list-reduced-motion .sortable-item {
+  transition: none;
+}
+
+.sortable-list-dragging {
+  cursor: grabbing;
+  user-select: none;
+}
+
+.sortable-handle {
+  display: inline-grid;
+  place-items: center;
+  min-width: 2.25rem;
+  min-height: 2.25rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--bg-sunken);
+  color: var(--fg-muted);
+  font-size: 1.1rem;
+  cursor: grab;
+  /* Without this, touch browsers scroll the page instead of dragging. */
+  touch-action: none;
+}
+
+.sortable-handle[aria-pressed='true'] {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.sortable-position {
+  min-width: 1.5rem;
+  color: var(--fg-muted);
+  text-align: right;
+}
+
+.sortable-title {
+  flex: 1;
+  font-weight: 550;
+}
+
+.sortable-buttons {
+  display: inline-flex;
+  gap: 0.15rem;
+}

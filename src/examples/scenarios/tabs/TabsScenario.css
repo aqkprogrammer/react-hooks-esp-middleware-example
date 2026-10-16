@@ -1,0 +1,60 @@
+.tabs {
+  display: grid;
+}
+
+.tabs-list {
+  display: flex;
+  gap: 0.25rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.tabs-tab {
+  margin-bottom: -1px;
+  padding: 0.5rem 1rem;
+  border: 1px solid transparent;
+  border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+  background: none;
+  color: var(--fg-muted);
+  font: inherit;
+  cursor: pointer;
+}
+
+.tabs-tab:hover {
+  color: var(--fg);
+}
+
+.tabs-tab[aria-selected='true'] {
+  border-color: var(--border);
+  border-bottom-color: var(--bg-elevated);
+  background: var(--bg-elevated);
+  color: var(--fg);
+  font-weight: 600;
+  /* Selection is not shown by colour alone. */
+  box-shadow: inset 0 3px 0 var(--accent);
+}
+
+.tabs-tab:focus-visible,
+.tabs-panel:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
+}
+
+.tabs-panel {
+  padding: 1rem;
+  border: 1px solid var(--border);
+  border-top: none;
+  border-radius: 0 0 var(--radius-sm) var(--radius-sm);
+  background: var(--bg-elevated);
+}
+
+.tabs-timer {
+  margin: 0;
+}
+
+.tabs-checklist {
+  display: grid;
+  gap: 0.4rem;
+  margin: 0;
+  border: none;
+  padding: 0;
+}

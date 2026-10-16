@@ -1,0 +1,46 @@
+.modal-dialog {
+  width: min(28rem, calc(100vw - 2rem));
+  padding: 1.25rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--bg-elevated);
+  color: var(--fg);
+  box-shadow: var(--shadow);
+}
+
+/* ::backdrop inherits custom properties from the dialog in current browsers. */
+.modal-dialog::backdrop {
+  background: color-mix(in srgb, var(--bg-sunken) 75%, transparent);
+  backdrop-filter: blur(2px);
+}
+
+.modal-dialog-confirm {
+  width: min(22rem, calc(100vw - 2rem));
+}
+
+.modal-dialog-title {
+  margin: 0;
+}
+
+.modal-dialog-actions {
+  justify-content: flex-end;
+}
+
+.modal-dialog-profile {
+  display: grid;
+  gap: 0.35rem;
+  margin: 0;
+}
+
+.modal-dialog-profile > div {
+  display: grid;
+  grid-template-columns: 5rem 1fr;
+}
+
+.modal-dialog-profile dt {
+  color: var(--fg-muted);
+}
+
+.modal-dialog-profile dd {
+  margin: 0;
+}

@@ -1,0 +1,71 @@
+/* Shared by the Rules of Hooks / anti-pattern demos. */
+
+.ap-fieldset {
+  border: none;
+  margin: 0;
+  padding: 0;
+}
+
+.ap-code {
+  margin: 0;
+  padding: 0.75rem;
+  overflow-x: auto;
+  background: var(--code-bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  font-size: 0.85rem;
+  line-height: 1.5;
+}
+
+.ap-table-wrap {
+  overflow-x: auto;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+}
+
+.ap-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.875rem;
+}
+
+.ap-table th,
+.ap-table td {
+  padding: 0.4rem 0.6rem;
+  border-bottom: 1px solid var(--border);
+  text-align: left;
+  vertical-align: top;
+}
+
+.ap-table thead th {
+  background: var(--bg-sunken);
+}
+
+.ap-slot-ok {
+  background: var(--success-soft);
+}
+
+.ap-slot-wrong-state,
+.ap-slot-order-changed {
+  background: var(--warn-soft);
+}
+
+.ap-slot-missing,
+.ap-slot-extra {
+  background: var(--danger-soft);
+}
+
+.ap-columns {
+  display: grid;
+  gap: 0.85rem;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
+}
+
+.ap-swatch {
+  display: inline-block;
+  width: 1rem;
+  height: 1rem;
+  border-radius: 4px;
+  border: 1px solid var(--border);
+  vertical-align: middle;
+}

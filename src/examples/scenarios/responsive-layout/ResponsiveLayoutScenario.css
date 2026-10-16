@@ -1,0 +1,122 @@
+.responsive-fieldset {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.25rem;
+  margin: 0;
+  padding: 0;
+  border: none;
+}
+
+.responsive-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  width: 100%;
+  padding: 0.85rem;
+  border: 2px dashed var(--border);
+  border-radius: var(--radius);
+  background: var(--bg-elevated);
+}
+
+.responsive-sidebar {
+  display: grid;
+  grid-template-columns: 200px minmax(0, 1fr);
+  gap: 1rem;
+}
+
+.responsive-nav {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.responsive-nav-item,
+.responsive-tab {
+  width: 100%;
+  padding: 0.45rem 0.65rem;
+  border: 1px solid transparent;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--fg);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.responsive-nav-item[aria-current='true'] {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+  font-weight: 600;
+}
+
+.responsive-tablist {
+  display: flex;
+  gap: 0.25rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.responsive-tab {
+  width: auto;
+  border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+}
+
+.responsive-tab[aria-selected='true'] {
+  border-color: var(--border);
+  border-bottom-color: var(--bg-elevated);
+  margin-bottom: -1px;
+  background: var(--bg-elevated);
+  font-weight: 600;
+}
+
+.responsive-tabpanel {
+  padding: 0.75rem 0.25rem;
+}
+
+.responsive-heading {
+  margin: 0 0 0.25rem;
+}
+
+.responsive-section-body {
+  margin: 0;
+  color: var(--fg-muted);
+}
+
+/* Pure CSS: the card re-flows based on its container, no JavaScript involved. */
+.responsive-card-host {
+  container-type: inline-size;
+}
+
+.responsive-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.6rem;
+  padding: 0.75rem;
+  border-radius: var(--radius-sm);
+  background: var(--bg-sunken);
+}
+
+@container (min-width: 420px) {
+  .responsive-card {
+    flex-direction: row;
+    align-items: center;
+  }
+}
+
+.responsive-avatar {
+  display: grid;
+  place-items: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  background: var(--accent);
+  color: var(--accent-fg);
+  font-weight: 700;
+}
+
+.responsive-card-text {
+  margin: 0;
+}

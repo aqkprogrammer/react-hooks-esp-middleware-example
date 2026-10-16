@@ -1,0 +1,31 @@
+.race-safe-fetching-columns {
+  display: grid;
+  gap: 0.85rem;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+  align-items: start;
+}
+
+.race-safe-fetching-card {
+  min-height: 4.5rem;
+}
+
+.race-safe-fetching-fields {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.25rem 0.75rem;
+  margin: 0;
+}
+
+.race-safe-fetching-fields dt {
+  color: var(--fg-muted);
+}
+
+.race-safe-fetching-fields dd {
+  margin: 0;
+  font-weight: 600;
+}
+
+.race-safe-fetching-error {
+  margin: 0;
+  color: var(--danger);
+}
