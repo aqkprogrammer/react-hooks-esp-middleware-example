@@ -1,0 +1,59 @@
+.esp-desk-grid {
+  display: grid;
+  gap: 0.85rem;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr));
+  align-items: start;
+}
+
+.esp-side {
+  display: flex;
+  gap: 0.75rem;
+  margin: 0;
+  padding: 0;
+  border: none;
+}
+
+.esp-status {
+  min-height: 1.4em;
+  margin: 0;
+}
+
+.esp-rejections {
+  margin: 0;
+  padding-left: 1.1rem;
+  color: var(--danger);
+  font-size: 0.875rem;
+}
+
+.esp-table-wrap {
+  overflow-x: auto;
+}
+
+.esp-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.875rem;
+}
+
+.esp-table th,
+.esp-table td {
+  padding: 0.35rem 0.5rem;
+  border-bottom: 1px solid var(--border);
+  text-align: left;
+  white-space: nowrap;
+}
+
+.esp-table td {
+  font-family: var(--font-mono);
+}
+
+.esp-busted td,
+.esp-busted th {
+  color: var(--fg-muted);
+  text-decoration: line-through;
+}
+
+/* Keep the status badge legible in busted rows. */
+.esp-busted td .badge {
+  text-decoration: none;
+}
