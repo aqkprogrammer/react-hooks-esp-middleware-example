@@ -11,9 +11,9 @@ real-world scenarios, state-management and middleware patterns, and the
 repository's original idea: **wrapping [esp-js](https://github.com/esp/esp-js)
 in middleware so React hooks can take part in an event-routed workspace.**
 
-Every topic runs a **live demo**, shows the **exact source file that runs it**
-(loaded as raw text, so code samples cannot go stale), links the **tests that
-verify it**, and explains when _not_ to use the pattern.
+Every topic shows the **exact source files** behind it (loaded as raw text, so
+code samples cannot go stale), links the **tests that verify it**, and explains
+when _not_ to use the pattern; nearly all of them also run a **live demo**.
 
 > **Repository name.** The repository keeps its original name,
 > `react-hooks-esp-middleware-example`, because the esp-js middleware example
