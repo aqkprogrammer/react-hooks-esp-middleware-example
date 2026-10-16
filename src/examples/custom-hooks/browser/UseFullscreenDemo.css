@@ -1,0 +1,15 @@
+.use-fullscreen-demo-stage {
+  display: grid;
+  gap: 1rem;
+  place-items: center;
+  min-height: 200px;
+  padding: 1.5rem;
+  border-radius: var(--radius);
+  background: linear-gradient(135deg, var(--accent-soft), var(--bg-sunken));
+  color: var(--fg);
+  text-align: center;
+}
+.use-fullscreen-demo-stage:fullscreen {
+  border-radius: 0;
+  font-size: 1.5rem;
+}

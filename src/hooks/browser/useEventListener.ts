@@ -26,7 +26,9 @@ function resolveTarget(target: EventTargetLike | undefined): EventTarget | null 
 export function useEventListener<K extends keyof WindowEventMap>(
   type: K,
   handler: (event: WindowEventMap[K]) => void,
-  target?: undefined,
+  // `Window | null` (not just `undefined`) so `enabled ? undefined : null`
+  // keeps the typed event instead of falling through to the `Event` overload.
+  target?: Window | null,
   options?: EventListenerOptions,
 ): void;
 export function useEventListener<K extends keyof DocumentEventMap>(

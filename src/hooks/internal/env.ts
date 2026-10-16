@@ -3,10 +3,23 @@ export const isBrowser = typeof window !== 'undefined' && typeof document !== 'u
 
 export const noop = (): void => {};
 
-/** Normalises unknown thrown values into `Error` instances. */
+/**
+ * Normalises unknown thrown values into `Error` instances. Error-like objects
+ * that are not `instanceof Error` — e.g. `DOMException`s from another realm or
+ * from jsdom — keep their `name` and `message`.
+ */
 export function toError(value: unknown): Error {
   if (value instanceof Error) return value;
   if (typeof value === 'string') return new Error(value);
+  if (typeof value === 'object' && value !== null && 'message' in value) {
+    const { message } = value as { message: unknown };
+    if (typeof message === 'string') {
+      const error = new Error(message);
+      const { name } = value as { name?: unknown };
+      if (typeof name === 'string') error.name = name;
+      return error;
+    }
+  }
   try {
     return new Error(JSON.stringify(value));
   } catch {

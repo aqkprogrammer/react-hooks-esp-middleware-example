@@ -1,0 +1,8 @@
+.use-scroll-position-demo-scroller {
+  max-height: 220px;
+  overflow: auto;
+  padding: 0 1rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--bg-elevated);
+}
