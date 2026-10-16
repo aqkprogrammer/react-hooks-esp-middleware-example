@@ -21,6 +21,7 @@ import { entries as customAdvanced } from './entries/custom-advanced';
 import { entries as stateManagement } from './entries/state-management';
 import { entries as esp } from './entries/esp';
 import { entries as scenariosCore } from './entries/scenarios-core';
+import { entries as scenariosInteraction } from './entries/scenarios-interaction';
 import { entries as scenariosAdvanced } from './entries/scenarios-advanced';
 import { entries as testing } from './entries/testing';
 
@@ -43,6 +44,7 @@ export const catalog: readonly CatalogEntry[] = [
   ...stateManagement,
   ...esp,
   ...scenariosCore,
+  ...scenariosInteraction,
   ...scenariosAdvanced,
   ...testing,
 ];
