@@ -1,0 +1,68 @@
+.mwp-toggles {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1rem;
+  margin: 0;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+}
+.mwp-toggles legend {
+  padding: 0 0.25rem;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+.mwp-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  cursor: pointer;
+}
+.mwp-pipeline {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 150px), 1fr));
+  gap: 0.5rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.mwp-stage {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding: 0.5rem 0.6rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--bg-elevated);
+}
+.mwp-stage[data-enabled='false'] {
+  border-style: dashed;
+  background: var(--bg-sunken);
+}
+.mwp-stage[data-outcome='passed'],
+.mwp-stage[data-outcome='reduced'] {
+  border-color: var(--accent);
+}
+.mwp-stage[data-outcome='stopped'],
+.mwp-stage[data-outcome='threw'] {
+  border-color: var(--warn);
+  border-width: 2px;
+}
+.mwp-stage-name {
+  font-weight: 600;
+  font-size: 0.85rem;
+}
+.mwp-trace-title {
+  margin: 0 0 0.35rem;
+  font-size: 0.95rem;
+}
+.mwp-trace {
+  margin: 0;
+  padding: 0.4rem 0.6rem;
+  list-style: none;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--bg-sunken);
+  max-height: 220px;
+  overflow: auto;
+}
