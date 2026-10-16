@@ -1,0 +1,27 @@
+.use-ref-imperative-widget-demo-host .star-rating-widget {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+}
+
+.use-ref-imperative-widget-demo-host .star-rating-widget-star {
+  min-width: 2.25rem;
+  min-height: 2.25rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--bg-elevated);
+  color: var(--fg-muted);
+  font-size: 1.25rem;
+  cursor: pointer;
+}
+
+.use-ref-imperative-widget-demo-host .star-rating-widget-star[aria-pressed='true'] {
+  background: var(--warn-soft);
+  border-color: var(--warn);
+  color: var(--warn);
+}
+
+.use-ref-imperative-widget-demo-host .star-rating-widget-star:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
+}

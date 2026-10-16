@@ -1,0 +1,49 @@
+.use-imperative-handle-demo-shake-a,
+.use-imperative-handle-demo-shake-b {
+  border-color: var(--danger);
+}
+.use-imperative-handle-demo-shake-a {
+  animation: use-imperative-handle-demo-shake-a 360ms ease-in-out;
+}
+.use-imperative-handle-demo-shake-b {
+  animation: use-imperative-handle-demo-shake-b 360ms ease-in-out;
+}
+
+/* Two identical keyframes: switching the name restarts the animation. */
+@keyframes use-imperative-handle-demo-shake-a {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  20%,
+  60% {
+    transform: translateX(-6px);
+  }
+  40%,
+  80% {
+    transform: translateX(6px);
+  }
+}
+@keyframes use-imperative-handle-demo-shake-b {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  20%,
+  60% {
+    transform: translateX(-6px);
+  }
+  40%,
+  80% {
+    transform: translateX(6px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .use-imperative-handle-demo-shake-a,
+  .use-imperative-handle-demo-shake-b {
+    animation: none;
+    outline: 2px solid var(--danger);
+    outline-offset: 2px;
+  }
+}
