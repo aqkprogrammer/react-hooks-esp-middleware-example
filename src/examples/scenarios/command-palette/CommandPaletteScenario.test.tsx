@@ -1,8 +1,8 @@
 import { render, screen, waitFor, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
-import { expectNoAxeViolations } from '../../../hooks/accessibility/testing/expectNoAxeViolations';
-import { installDialogPolyfill } from '../../../hooks/accessibility/testing/installDialogPolyfill';
+import { expectNoAxeViolations } from '../../../test/expectNoAxeViolations';
+import { installDialogPolyfill } from '../../../test/installDialogPolyfill';
 import { overrideProperty } from '../../../test/browserMocks';
 import CommandPaletteScenario from './CommandPaletteScenario';
 import { buildSections, pushRecent, RECENT_KEY, scoreCommand, type Command } from './commands';

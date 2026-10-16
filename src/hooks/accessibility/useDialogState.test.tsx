@@ -2,7 +2,7 @@ import { fireEvent, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { useState } from 'react';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
-import { installDialogPolyfill } from './testing/installDialogPolyfill';
+import { installDialogPolyfill } from '../../test/installDialogPolyfill';
 import { useDialogState, type UseDialogStateOptions } from './useDialogState';
 
 let uninstall: () => void = () => {};
@@ -54,6 +54,19 @@ describe('useDialogState', () => {
     expect(screen.getByText('result: confirm')).toBeInTheDocument();
     expect(onClose).toHaveBeenCalledWith('confirm');
     expect(screen.getByRole('button', { name: 'Delete project' })).toHaveFocus();
+  });
+
+  it('clears the previous returnValue when reopened, so Escape reports an empty value', async () => {
+    const user = userEvent.setup();
+    const onClose = vi.fn();
+    render(<ConfirmDelete onClose={onClose} />);
+    await user.click(screen.getByRole('button', { name: 'Delete project' }));
+    await user.click(screen.getByRole('button', { name: 'Delete' }));
+    expect(onClose).toHaveBeenLastCalledWith('confirm');
+
+    await user.click(screen.getByRole('button', { name: 'Delete project' }));
+    await user.keyboard('{Escape}');
+    expect(onClose).toHaveBeenLastCalledWith('');
   });
 
   it('syncs when the browser closes it via Escape (cancel event)', async () => {

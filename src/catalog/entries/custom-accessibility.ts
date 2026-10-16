@@ -164,7 +164,7 @@ export const entries: CatalogEntry[] = [
       'hooks/accessibility/accessibility.ssr.test.tsx',
       'examples/custom-hooks/accessibility/UseRovingTabIndexDemo.test.tsx',
     ],
-    minReact: '16.8',
+    minReact: '19.0', // relies on ref callbacks returning a cleanup function (React 19)
     support: { level: 'universal' },
     officialDocs: [
       {
@@ -753,7 +753,7 @@ export const entries: CatalogEntry[] = [
       'Newer browsers support `closedby="any"` for light dismiss natively.',
     ],
     testing:
-      'jsdom lacks `showModal`, so tests install a small polyfill (`hooks/accessibility/testing/installDialogPolyfill.ts`) that models open/close, Escape → `cancel` and `<form method="dialog">` — but deliberately not focus restoration, so the tests prove the hook restores focus. Covered: labelling, initial focus, `returnValue`, Escape (allowed and prevented), backdrop vs padding clicks, `defaultOpen`, unmount while open and the no-`showModal` fallback; the demo test runs axe-core on the open dialog.',
+      'jsdom lacks `showModal`, so tests install a small polyfill (`test/installDialogPolyfill.ts`) that models open/close, Escape → `cancel` and `<form method="dialog">` — but deliberately not focus restoration, so the tests prove the hook restores focus. Covered: labelling, initial focus, `returnValue`, Escape (allowed and prevented), backdrop vs padding clicks, `defaultOpen`, unmount while open and the no-`showModal` fallback; the demo test runs axe-core on the open dialog.',
     production: [
       'Style `::backdrop` and respect `prefers-reduced-motion` for open animations (the demo does both).',
       'Lock background scrolling if your layout needs it; `showModal()` does not do that.',

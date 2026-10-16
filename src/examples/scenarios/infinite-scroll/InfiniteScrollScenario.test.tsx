@@ -54,6 +54,15 @@ describe('InfiniteScrollScenario', () => {
     await expectStatus('Showing 20 of 500');
     expect(items()).toHaveLength(20);
 
+    // The observer is (re)created in a passive effect after each page renders;
+    // wait until one is watching the sentinel before simulating the scroll.
+    await waitFor(() =>
+      expect(
+        IO.instances.some(
+          (observer) => !observer.disconnected && observer.elements.has(sentinel(container)),
+        ),
+      ).toBe(true),
+    );
     IO.triggerAll(sentinel(container), true);
     IO.triggerAll(sentinel(container), true);
     await expectStatus('Showing 40 of 500');

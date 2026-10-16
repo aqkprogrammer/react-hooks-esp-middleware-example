@@ -65,7 +65,10 @@ describe('playground shell', () => {
       'true',
     );
     await go('#/learn');
-    expect(screen.getByRole('checkbox', { name: 'Mark useLatest as learned' })).toBeChecked();
+    // Label/role queries across ~200 rows take seconds in jsdom: find the row
+    // by its visible text, then query inside it.
+    const row = screen.getByRole('link', { name: 'useLatest' }).closest('li');
+    expect(within(row!).getByRole('checkbox', { name: 'Mark useLatest as learned' })).toBeChecked();
   });
 
   it('applies an explicit theme to <html>', async () => {

@@ -1,7 +1,7 @@
 import { render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { describe, expect, it } from 'vitest';
-import { expectNoAxeViolations } from '../../../hooks/accessibility/testing/expectNoAxeViolations';
+import { expectNoAxeViolations } from '../../../test/expectNoAxeViolations';
 import DropdownMenuScenario from './DropdownMenuScenario';
 import { findByFirstLetter } from './menuModel';
 

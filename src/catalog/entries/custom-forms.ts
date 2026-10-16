@@ -549,7 +549,7 @@ export const entries: CatalogEntry[] = [
       'hooks/forms/forms.ssr.test.tsx',
       'examples/custom-hooks/forms/UseFormDemo.test.tsx',
     ],
-    minReact: '18.0',
+    minReact: '19.0', // relies on ref callbacks returning a cleanup function (React 19)
     support: { level: 'universal' },
     officialDocs: [
       RHF,

@@ -2,7 +2,7 @@ import { render, screen, waitFor, within } from '@testing-library/react';
 import userEvent, { type UserEvent } from '@testing-library/user-event';
 import { http } from 'msw';
 import { afterEach, describe, expect, it } from 'vitest';
-import { expectNoAxeViolations } from '../../../hooks/accessibility/testing/expectNoAxeViolations';
+import { expectNoAxeViolations } from '../../../test/expectNoAxeViolations';
 import { resetScenariosInteractionMocks } from '../../../mocks/extra/scenariosInteraction';
 import { server } from '../../../test/server';
 import AuthProtectedUiScenario from './AuthProtectedUiScenario';

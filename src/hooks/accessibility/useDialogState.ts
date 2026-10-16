@@ -115,6 +115,9 @@ export function useDialogState(options: UseDialogStateOptions = {}): UseDialogSt
     const active = document.activeElement;
     triggerRef.current = active instanceof HTMLElement && active !== document.body ? active : null;
     openRef.current = true;
+    // Browsers keep returnValue across openings and Escape doesn't reset it,
+    // so clear it or a cancel would report the previous result.
+    dialog.returnValue = '';
     show(dialog);
     setIsOpen(true);
   }, []);

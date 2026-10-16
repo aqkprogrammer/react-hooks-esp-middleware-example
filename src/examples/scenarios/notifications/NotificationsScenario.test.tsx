@@ -1,7 +1,7 @@
 import { act, fireEvent, render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
-import { expectNoAxeViolations } from '../../../hooks/accessibility/testing/expectNoAxeViolations';
+import { expectNoAxeViolations } from '../../../test/expectNoAxeViolations';
 import { installMatchMedia, setDocumentVisibility } from '../../../test/browserMocks';
 import NotificationsScenario from './NotificationsScenario';
 

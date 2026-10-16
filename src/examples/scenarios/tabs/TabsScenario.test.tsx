@@ -1,7 +1,7 @@
 import { act, fireEvent, render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { describe, expect, it, vi } from 'vitest';
-import { expectNoAxeViolations } from '../../../hooks/accessibility/testing/expectNoAxeViolations';
+import { expectNoAxeViolations } from '../../../test/expectNoAxeViolations';
 import TabsScenario from './TabsScenario';
 
 const tab = (name: string) => screen.getByRole('tab', { name });

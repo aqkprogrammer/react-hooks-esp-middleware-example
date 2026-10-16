@@ -1,8 +1,8 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
-import { expectNoAxeViolations } from '../../../hooks/accessibility/testing/expectNoAxeViolations';
-import { installDialogPolyfill } from '../../../hooks/accessibility/testing/installDialogPolyfill';
+import { expectNoAxeViolations } from '../../../test/expectNoAxeViolations';
+import { installDialogPolyfill } from '../../../test/installDialogPolyfill';
 import ModalDialogScenario from './ModalDialogScenario';
 
 let uninstall: () => void = () => {};

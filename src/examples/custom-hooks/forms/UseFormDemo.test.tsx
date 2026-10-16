@@ -4,7 +4,7 @@ import { beforeEach, describe, expect, it } from 'vitest';
 import { server } from '../../../test/server';
 import { handlers as formHandlers } from '../../../mocks/extra/forms';
 
-import { expectNoAxeViolations } from '../../../hooks/accessibility/testing/expectNoAxeViolations';
+import { expectNoAxeViolations } from '../../../test/expectNoAxeViolations';
 import UseFormDemo from './UseFormDemo';
 
 async function fill(user: ReturnType<typeof userEvent.setup>, username: string) {

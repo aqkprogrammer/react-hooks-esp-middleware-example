@@ -6,12 +6,12 @@
 /// <reference types="node" />
 import { existsSync, readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
-import { fileURLToPath } from 'node:url';
 import { describe, expect, it } from 'vitest';
 import * as hooks from '../hooks';
 import { catalog } from './index';
 
-const srcDir = resolve(fileURLToPath(new URL('.', import.meta.url)), '..');
+// Vitest runs from the project root (jsdom's import.meta.url is not a file: URL).
+const srcDir = resolve(process.cwd(), 'src');
 const fileExists = (relative: string) => existsSync(resolve(srcDir, relative));
 
 describe('catalog integrity', () => {
