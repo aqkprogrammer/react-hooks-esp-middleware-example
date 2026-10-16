@@ -333,9 +333,20 @@ function renderReadme(current: string): string {
   return next;
 }
 
+/**
+ * Prettier's formatting of code embedded in Markdown is not always idempotent
+ * (a long signature can reflow on a second pass), so format until stable —
+ * otherwise `prettier --check` in CI would disagree with the generator.
+ */
 async function format(text: string, filepath: string): Promise<string> {
   const options = (await prettier.resolveConfig(filepath)) ?? {};
-  return prettier.format(text, { ...options, filepath });
+  let current = text;
+  for (let pass = 0; pass < 5; pass += 1) {
+    const next = await prettier.format(current, { ...options, filepath });
+    if (next === current) return next;
+    current = next;
+  }
+  return current;
 }
 
 async function main() {
