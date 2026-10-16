@@ -9,6 +9,11 @@ export default defineConfig({
   plugins: [react()],
   build: {
     sourcemap: true,
+    // The largest chunk is `catalog` (~700 kB raw / ~215 kB gzip): the text of
+    // every topic, needed up front for client-side search. The app shell
+    // itself is ~170 kB. Splitting the catalog into a search index + lazily
+    // loaded details is on the roadmap; until then the limit reflects reality.
+    chunkSizeWarningLimit: 800,
     rolldownOptions: {
       output: {
         // Separately cacheable chunks: the React runtime changes rarely, the

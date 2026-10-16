@@ -661,6 +661,8 @@ Contributions are welcome — see [CONTRIBUTING.md](CONTRIBUTING.md) and the
   APIs jsdom cannot emulate.
 - Optional React Compiler build to compare manual and automatic memoization.
 - More esp-js examples (decorator-based models via `observeEvent`).
+- Split the catalog into a small search index plus lazily loaded topic
+  details (the catalog chunk is ~215 kB gzipped today).
 
 ## License
 
