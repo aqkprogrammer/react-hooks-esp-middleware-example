@@ -30,7 +30,11 @@ export const entries: CatalogEntry[] = [
     ],
     demo: 'examples/esp-js/EspVsReducerDemo.tsx',
     sources: [...MIDDLEWARE_SOURCES, 'middleware/esp-js/router.ts', 'middleware/esp-js/index.ts'],
-    tests: ['middleware/esp-js/esp.test.tsx', 'examples/esp-js/EspExamples.test.tsx'],
+    tests: [
+      'middleware/esp-js/esp.test.tsx',
+      'middleware/esp-js/esp.ssr.test.ts',
+      'examples/esp-js/EspExamples.test.tsx',
+    ],
     minReact: '19.0',
     officialDocs: [
       ESP_REPO,
