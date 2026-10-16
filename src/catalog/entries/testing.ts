@@ -66,8 +66,13 @@ export const entries: CatalogEntry[] = [
     summary:
       'Control time deterministically with `vi.useFakeTimers()` and `vi.advanceTimersByTime()`.',
     tags: ['testing', 'fake timers', 'debounce', 'throttle', 'interval', 'vitest'],
-    sources: ['test/setup.ts'],
-    tests: ['test/setup.ts'],
+    sources: ['hooks/timing/useDebouncedCallback.test.tsx', 'hooks/async/useRetry.test.tsx'],
+    tests: [
+      'hooks/timing/useDebouncedCallback.test.tsx',
+      'hooks/timing/useInterval.test.tsx',
+      'hooks/async/useRetry.test.tsx',
+      'hooks/async/usePolling.test.tsx',
+    ],
     minReact: '16.8',
     officialDocs: [
       { label: 'Vitest: fake timers', url: 'https://vitest.dev/guide/mocking/timers' },
@@ -81,7 +86,7 @@ export const entries: CatalogEntry[] = [
     execution: [
       '`vi.useFakeTimers()` before rendering.',
       '`act(() => vi.advanceTimersByTime(ms))` to move time forward.',
-      'With user-event, pass `advanceTimers: vi.advanceTimersByTime` to `userEvent.setup()`.',
+      'Fully faked timers make Testing Library async helpers (`findBy*`, `waitFor`, user-event) wait on a faked `setTimeout`: drive the UI with `fireEvent`, fake only what you need (`toFake: ["setInterval"]`), or use `vi.useFakeTimers({ shouldAdvanceTime: true })`.',
       '`vi.useRealTimers()` in `afterEach` (or rely on per-test setup).',
     ],
     mistakes: [
