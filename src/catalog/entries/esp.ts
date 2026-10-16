@@ -53,6 +53,8 @@ export const entries: CatalogEntry[] = [
       'esp-stages-and-filtering',
       'esp-error-isolation',
       'esp-migration-notes',
+      'reducer-middleware-pipeline',
+      'state-management-comparison',
     ],
     concept:
       "Each React store (a reducer + middleware chain) registers a *model* with an esp-js `Router`. Two special actions — `ESP_PUBLISH_ACTION` (one model) and `ESP_BROADCAST_ACTION` (every observing model) — are intercepted by the ESP middleware and routed through esp-js. A bridge subscribes to the model's events and dispatches them back into the reducer as ordinary actions (`{ type: eventType, payload: event }`).",
