@@ -1,0 +1,101 @@
+.theme-switching-choices {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.25rem;
+  margin: 0;
+  padding: 0;
+  border: none;
+}
+
+.theme-switching-choices legend {
+  margin-bottom: 0.35rem;
+  padding: 0;
+}
+
+.theme-switching-choice {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  cursor: pointer;
+}
+
+/*
+ * The preview *re-declares the playground's design tokens* for its subtree.
+ * Custom properties inherit, so every UI-kit component inside (Badge,
+ * Button, ...) switches with it, while the rest of the page keeps the
+ * playground theme. These declarations are the theme definition itself;
+ * everything below them uses only var(--token).
+ */
+.theme-switching-preview[data-preview-theme='light'] {
+  color-scheme: light;
+  --bg: #f7f7f9;
+  --bg-elevated: #ffffff;
+  --bg-sunken: #eef0f4;
+  --fg: #1b1d23;
+  --fg-muted: #5b6070;
+  --border: #d8dbe3;
+  --accent: #0b63ce;
+  --accent-fg: #ffffff;
+  --accent-soft: #e3eefc;
+  --focus: #0b63ce;
+}
+
+.theme-switching-preview[data-preview-theme='dark'] {
+  color-scheme: dark;
+  --bg: #111318;
+  --bg-elevated: #1a1d24;
+  --bg-sunken: #0c0e12;
+  --fg: #e6e8ee;
+  --fg-muted: #a0a6b5;
+  --border: #2e333e;
+  --accent: #6aa7ff;
+  --accent-fg: #0b1220;
+  --accent-soft: #1b2a42;
+  --focus: #8ab8ff;
+}
+
+.theme-switching-preview {
+  padding: 1.25rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--bg);
+  color: var(--fg);
+}
+
+.theme-switching-preview-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding: 1rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--bg-elevated);
+}
+
+.theme-switching-preview-title {
+  margin: 0;
+  font-size: 1.05rem;
+}
+
+.theme-switching-preview-text {
+  margin: 0;
+  color: var(--fg-muted);
+}
+
+.theme-switching-preview-button {
+  align-self: flex-start;
+}
+
+/* Cross-fade only when the user has not asked for reduced motion (useReducedMotion). */
+.theme-switching-preview[data-motion='full'],
+.theme-switching-preview[data-motion='full'] * {
+  transition:
+    background-color 400ms ease,
+    color 400ms ease,
+    border-color 400ms ease;
+}
+
+.theme-switching-preview[data-motion='reduce'],
+.theme-switching-preview[data-motion='reduce'] * {
+  transition: none;
+}

@@ -1,0 +1,39 @@
+.live-notifications-form {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 0.5rem;
+  align-items: start;
+}
+
+.live-notifications-form > .btn {
+  margin-top: 1.6rem;
+}
+
+@media (max-width: 560px) {
+  .live-notifications-form {
+    grid-template-columns: 1fr;
+  }
+
+  .live-notifications-form > .btn {
+    margin-top: 0;
+  }
+}
+
+.live-notifications-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.live-notifications-body {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.4rem 0.6rem;
+}
+
+.live-notifications-unread {
+  font-weight: 600;
+  border-left: 3px solid var(--accent);
+}
