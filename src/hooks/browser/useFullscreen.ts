@@ -1,6 +1,6 @@
 import { useCallback, useState, useSyncExternalStore } from 'react';
-import { isBrowser, noop } from '../internal/env';
-import { toErrorLike, useIsSupported } from './shared';
+import { isBrowser, noop, toError } from '../internal/env';
+import { useIsSupported } from './shared';
 
 /** Safari before 16.4 (macOS/iPadOS) only implements the `webkit`-prefixed API. */
 interface PrefixedDocument extends Document {
@@ -108,7 +108,7 @@ export function useFullscreen<T extends Element = HTMLElement>(
       }
       setError(null);
     } catch (caught) {
-      setError(toErrorLike(caught));
+      setError(toError(caught));
     }
   }, [element, navigationUI]);
 
@@ -121,7 +121,7 @@ export function useFullscreen<T extends Element = HTMLElement>(
       else await doc.webkitExitFullscreen?.();
       setError(null);
     } catch (caught) {
-      setError(toErrorLike(caught));
+      setError(toError(caught));
     }
   }, []);
 

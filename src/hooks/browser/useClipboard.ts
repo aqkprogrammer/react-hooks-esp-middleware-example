@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { isBrowser } from '../internal/env';
-import { toErrorLike, useIsSupported } from './shared';
+import { isBrowser, toError } from '../internal/env';
+import { useIsSupported } from './shared';
 
 export interface UseClipboardOptions {
   /** How long `copied` stays `true` after a successful copy. Default `2000` ms; `0` keeps it until the next copy/reset. */
@@ -95,7 +95,7 @@ export function useClipboard(options: UseClipboardOptions = {}): UseClipboardRes
       } catch (caught) {
         if (call === callRef.current) {
           setCopied(false);
-          setError(toErrorLike(caught));
+          setError(toError(caught));
         }
         return false;
       }
@@ -114,7 +114,7 @@ export function useClipboard(options: UseClipboardOptions = {}): UseClipboardRes
       if (call === callRef.current) setError(null);
       return text;
     } catch (caught) {
-      if (call === callRef.current) setError(toErrorLike(caught));
+      if (call === callRef.current) setError(toError(caught));
       return null;
     }
   }, []);

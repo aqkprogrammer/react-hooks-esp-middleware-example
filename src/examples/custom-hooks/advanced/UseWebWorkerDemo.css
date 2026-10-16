@@ -1,0 +1,14 @@
+.use-web-worker-spinner {
+  display: inline-block;
+  width: 1.5rem;
+  height: 1.5rem;
+  border: 3px solid var(--border);
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  animation: use-web-worker-spin 0.8s linear infinite;
+}
+@keyframes use-web-worker-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

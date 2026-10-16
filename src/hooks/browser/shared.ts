@@ -3,7 +3,7 @@
  * index — the hooks themselves are the public API.
  */
 import { useSyncExternalStore, type RefObject } from 'react';
-import { noop, toError } from '../internal/env';
+import { noop } from '../internal/env';
 
 /**
  * An element to observe or listen to:
@@ -41,24 +41,4 @@ export function scheduleFrame(callback: () => void): () => void {
   }
   const id = setTimeout(callback, 16);
   return () => clearTimeout(id);
-}
-
-/**
- * Like `toError`, but keeps `name`/`message` of error-like objects that are not
- * `instanceof Error` — `DOMException`s from another realm (iframes) or from
- * environments such as jsdom, where `DOMException` does not extend `Error`.
- */
-export function toErrorLike(value: unknown): Error {
-  if (value instanceof Error) return value;
-  if (
-    typeof value === 'object' &&
-    value !== null &&
-    'message' in value &&
-    typeof value.message === 'string'
-  ) {
-    const error = new Error(value.message);
-    if ('name' in value && typeof value.name === 'string') error.name = value.name;
-    return error;
-  }
-  return toError(value);
 }

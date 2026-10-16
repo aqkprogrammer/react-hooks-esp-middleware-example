@@ -1,0 +1,21 @@
+.use-state-machine-states {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.use-state-machine-states > li {
+  padding: 0.3rem 0.75rem;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--bg-sunken);
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+}
+.use-state-machine-states > li[aria-current='step'] {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+  font-weight: 700;
+}

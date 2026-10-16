@@ -1,0 +1,35 @@
+.use-pointer-position-area {
+  position: relative;
+  min-height: 220px;
+  overflow: hidden;
+  touch-action: none;
+  cursor: crosshair;
+}
+.use-pointer-position-dot {
+  position: absolute;
+  width: 1.25rem;
+  height: 1.25rem;
+  margin: -0.625rem 0 0 -0.625rem;
+  border-radius: 50%;
+  border: 2px solid var(--accent-fg);
+  background: var(--accent);
+  box-shadow: var(--shadow);
+  pointer-events: none;
+}
+.use-pointer-position-line-x,
+.use-pointer-position-line-y {
+  position: absolute;
+  background: var(--accent);
+  opacity: 0.35;
+  pointer-events: none;
+}
+.use-pointer-position-line-x {
+  left: 0;
+  right: 0;
+  height: 1px;
+}
+.use-pointer-position-line-y {
+  top: 0;
+  bottom: 0;
+  width: 1px;
+}
