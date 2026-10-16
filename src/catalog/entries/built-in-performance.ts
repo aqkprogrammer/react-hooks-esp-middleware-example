@@ -408,7 +408,7 @@ export const entries: CatalogEntry[] = [
       { label: 'TanStack Virtual', url: 'https://tanstack.com/virtual/latest' },
       {
         label: 'MDN: content-visibility',
-        url: 'https://developer.mozilla.org/en-US/docs/Web/CSS/content-visibility',
+        url: 'https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/content-visibility',
       },
     ],
     related: ['memo', 'profiler', 'use-deferred-value', 'index-as-key'],

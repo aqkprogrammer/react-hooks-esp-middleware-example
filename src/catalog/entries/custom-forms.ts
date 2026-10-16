@@ -140,7 +140,7 @@ export const entries: CatalogEntry[] = [
       WAI_FORM_NOTIFICATIONS,
       {
         label: 'MDN: aria-invalid',
-        url: 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-invalid',
+        url: 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-invalid',
       },
     ],
     related: ['use-input', 'use-form-validation', 'use-form', 'use-id'],
@@ -154,7 +154,7 @@ export const entries: CatalogEntry[] = [
     ],
     whenNotToUse: [
       'Several fields submitted together, cross-field rules or dirty tracking — use `useForm`.',
-      'Rules that the browser already enforces well (`required`, `type="email"`, `pattern`) on a simple form — the native [Constraint Validation API](https://developer.mozilla.org/en-US/docs/Web/API/Constraint_validation) may be enough.',
+      'Rules that the browser already enforces well (`required`, `type="email"`, `pattern`) on a simple form — the native [Constraint Validation API](https://developer.mozilla.org/en-US/docs/Web/HTML/Guides/Constraint_validation) may be enough.',
       LIBRARY_NOTE,
     ],
     api: {
@@ -761,7 +761,7 @@ export const entries: CatalogEntry[] = [
       },
       {
         label: 'MDN: aria-current',
-        url: 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-current',
+        url: 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-current',
       },
     ],
     related: ['use-form', 'use-form-validation'],

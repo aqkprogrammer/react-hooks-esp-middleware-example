@@ -137,7 +137,7 @@ export const entries: CatalogEntry[] = [
       },
       {
         label: 'React Aria: drag and drop',
-        url: 'https://react-spectrum.adobe.com/react-aria/dnd.html',
+        url: 'https://react-aria.adobe.com/dnd',
       },
     ],
     related: [
@@ -396,7 +396,7 @@ export const entries: CatalogEntry[] = [
       },
       {
         label: 'MDN: Secure contexts',
-        url: 'https://developer.mozilla.org/en-US/docs/Web/Security/Secure_Contexts',
+        url: 'https://developer.mozilla.org/en-US/docs/Web/Security/Defenses/Secure_Contexts',
       },
       LIVE_REGION_DOCS,
     ],
@@ -463,7 +463,7 @@ export const entries: CatalogEntry[] = [
     officialDocs: [
       {
         label: 'MDN: CSS container queries',
-        url: 'https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_containment/Container_queries',
+        url: 'https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Containment/Container_queries',
       },
       { label: 'WAI-ARIA APG: Tabs', url: 'https://www.w3.org/WAI/ARIA/apg/patterns/tabs/' },
       {

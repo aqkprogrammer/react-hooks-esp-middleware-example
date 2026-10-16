@@ -210,7 +210,7 @@ export const entries: CatalogEntry[] = [
       USE_SYNC_EXTERNAL_STORE,
       {
         label: 'Zustand: vanilla createStore',
-        url: 'https://zustand.docs.pmnd.rs/apis/create-store',
+        url: 'https://zustand.docs.pmnd.rs/reference/apis/create-store',
       },
     ],
     related: ['zustand', 'use-sync-external-store', 'use-context-performance', 'use-subscription'],

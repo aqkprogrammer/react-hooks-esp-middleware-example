@@ -431,15 +431,15 @@ export const entries: CatalogEntry[] = [
     officialDocs: [
       {
         label: 'MDN: prefers-color-scheme',
-        url: 'https://developer.mozilla.org/en-US/docs/Web/CSS/@media/prefers-color-scheme',
+        url: 'https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/At-rules/@media/prefers-color-scheme',
       },
       {
         label: 'MDN: color-scheme',
-        url: 'https://developer.mozilla.org/en-US/docs/Web/CSS/color-scheme',
+        url: 'https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/color-scheme',
       },
       {
         label: 'MDN: prefers-reduced-motion',
-        url: 'https://developer.mozilla.org/en-US/docs/Web/CSS/@media/prefers-reduced-motion',
+        url: 'https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/At-rules/@media/prefers-reduced-motion',
       },
     ],
     related: [

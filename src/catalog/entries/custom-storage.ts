@@ -243,7 +243,7 @@ export const entries: CatalogEntry[] = [
       },
       {
         label: 'MDN: Using HTTP cookies',
-        url: 'https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies',
+        url: 'https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/Cookies',
       },
       USE_SYNC_EXTERNAL_STORE_DOCS,
     ],

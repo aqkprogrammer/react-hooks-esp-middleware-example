@@ -96,7 +96,7 @@ export const entries: CatalogEntry[] = [
       },
       {
         label: 'MDN: User activation',
-        url: 'https://developer.mozilla.org/en-US/docs/Web/Security/User_activation',
+        url: 'https://developer.mozilla.org/en-US/docs/Web/Security/Defenses/User_activation',
       },
     ],
     related: ['use-speech-synthesis'],

@@ -12,7 +12,7 @@ const APG_KEYBOARD: DocLink = {
 };
 const MDN_DIALOG: DocLink = {
   label: 'MDN: <dialog>',
-  url: 'https://developer.mozilla.org/en-US/docs/Web/HTML/Element/dialog',
+  url: 'https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/dialog',
 };
 
 export const entries: CatalogEntry[] = [
@@ -47,7 +47,7 @@ export const entries: CatalogEntry[] = [
       MDN_DIALOG,
       {
         label: 'MDN: inert',
-        url: 'https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/inert',
+        url: 'https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes/inert',
       },
     ],
     related: ['use-dialog-state', 'use-escape-key', 'use-scroll-lock', 'use-click-outside'],
@@ -480,7 +480,7 @@ export const entries: CatalogEntry[] = [
     officialDocs: [
       {
         label: 'MDN: ARIA live regions',
-        url: 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Live_Regions',
+        url: 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Guides/Live_regions',
       },
       {
         label: 'WCAG 4.1.3: Status messages',
@@ -584,7 +584,7 @@ export const entries: CatalogEntry[] = [
       },
       {
         label: 'MDN: <details>',
-        url: 'https://developer.mozilla.org/en-US/docs/Web/HTML/Element/details',
+        url: 'https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/details',
       },
     ],
     related: ['use-toggle', 'use-id', 'use-dialog-state'],

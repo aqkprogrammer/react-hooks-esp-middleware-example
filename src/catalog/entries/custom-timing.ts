@@ -399,7 +399,7 @@ export const entries: CatalogEntry[] = [
       },
       {
         label: 'MDN: prefers-reduced-motion',
-        url: 'https://developer.mozilla.org/en-US/docs/Web/CSS/@media/prefers-reduced-motion',
+        url: 'https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/At-rules/@media/prefers-reduced-motion',
       },
     ],
     related: ['use-interval', 'use-throttle', 'use-media-query'],

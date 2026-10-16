@@ -450,7 +450,7 @@ export const entries: CatalogEntry[] = [
       },
       {
         label: 'MDN: :focus-within',
-        url: 'https://developer.mozilla.org/en-US/docs/Web/CSS/:focus-within',
+        url: 'https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Selectors/:focus-within',
       },
     ],
     related: ['use-focus', 'use-click-outside'],
@@ -752,7 +752,7 @@ export const entries: CatalogEntry[] = [
       },
       {
         label: 'MDN: box-sizing',
-        url: 'https://developer.mozilla.org/en-US/docs/Web/CSS/box-sizing',
+        url: 'https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/box-sizing',
       },
     ],
     related: ['use-resize-observer', 'use-window-size', 'use-media-query'],
@@ -1039,11 +1039,11 @@ export const entries: CatalogEntry[] = [
     officialDocs: [
       {
         label: 'MDN: overflow',
-        url: 'https://developer.mozilla.org/en-US/docs/Web/CSS/overflow',
+        url: 'https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/overflow',
       },
       {
         label: 'MDN: scrollbar-gutter',
-        url: 'https://developer.mozilla.org/en-US/docs/Web/CSS/scrollbar-gutter',
+        url: 'https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/scrollbar-gutter',
       },
     ],
     related: ['use-click-outside', 'use-scroll-position'],
@@ -1360,7 +1360,7 @@ export const entries: CatalogEntry[] = [
       },
       {
         label: 'MDN: Secure contexts',
-        url: 'https://developer.mozilla.org/en-US/docs/Web/Security/Secure_Contexts',
+        url: 'https://developer.mozilla.org/en-US/docs/Web/Security/Defenses/Secure_Contexts',
       },
     ],
     related: ['use-latest'],
@@ -1508,11 +1508,11 @@ export const entries: CatalogEntry[] = [
     officialDocs: [
       {
         label: 'MDN: prefers-color-scheme',
-        url: 'https://developer.mozilla.org/en-US/docs/Web/CSS/@media/prefers-color-scheme',
+        url: 'https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/At-rules/@media/prefers-color-scheme',
       },
       {
         label: 'MDN: light-dark()',
-        url: 'https://developer.mozilla.org/en-US/docs/Web/CSS/color_value/light-dark',
+        url: 'https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Values/color_value/light-dark',
       },
     ],
     related: ['use-media-query', 'use-reduced-motion', 'use-local-storage'],
@@ -1560,7 +1560,7 @@ export const entries: CatalogEntry[] = [
     officialDocs: [
       {
         label: 'MDN: prefers-reduced-motion',
-        url: 'https://developer.mozilla.org/en-US/docs/Web/CSS/@media/prefers-reduced-motion',
+        url: 'https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/At-rules/@media/prefers-reduced-motion',
       },
       {
         label: 'WCAG 2.2: Animation from Interactions',
