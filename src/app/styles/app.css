@@ -295,11 +295,10 @@
   white-space: pre;
   text-align: right;
   color: var(--fg-muted);
-  opacity: 0.6;
   user-select: none;
 }
 .tok-comment {
-  color: #6a737d;
+  color: #57606a;
   font-style: italic;
 }
 .tok-string {

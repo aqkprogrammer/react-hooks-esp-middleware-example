@@ -23,6 +23,8 @@ test('home page renders and has no serious accessibility violations', async ({ p
 
 test('search navigates to filtered results', async ({ page }) => {
   await page.goto('/');
+  // Wait for the app to mount (it starts after the mock API worker).
+  await expect(page.getByRole('heading', { level: 1 })).toBeVisible();
   await page.keyboard.press('/');
   await page.keyboard.type('debounce');
   await page.keyboard.press('Enter');
@@ -35,7 +37,7 @@ test('the original esp-js demo routes events in a real browser', async ({ page }
   await page.goto('/#/entry/esp-original-workspace');
   const accumulators = page.getByRole('article', { name: /Accumulators Tile/ });
   const price = page.getByRole('article', { name: /Price Tile/ });
-  await accumulators.getByLabel('Accumulator').fill('Range Accrual');
+  await accumulators.getByLabel('Accumulator', { exact: true }).fill('Range Accrual');
   await accumulators.getByRole('button', { name: 'Insert (Broadcast)' }).click();
   await expect(accumulators.getByText('Accumulator List: 3')).toBeVisible();
   await expect(price.getByText('Insert', { exact: true })).toBeVisible();
