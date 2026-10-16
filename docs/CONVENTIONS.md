@@ -36,6 +36,9 @@ Library code (`src/hooks`, `src/middleware`) must never import from
   `useEffectEvent` inside effects).
 - **Stable return values**: memoise returned callbacks/objects that consumers are
   likely to put in dependency arrays. Do not memoise everything by reflex.
+- The React Compiler lint treats any object with a `ref` property as a ref:
+  destructure hook results (`const { ref, isIntersecting } = useX()`)
+  instead of reading `result.ref` / `result.isIntersecting` in render.
 - Never write `ref.current` during render, never call `setState` during render
   except the documented "adjust state on prop change" pattern, avoid
   `setState` directly inside an effect body when it can be derived instead.
@@ -67,12 +70,20 @@ Library code (`src/hooks`, `src/middleware`) must never import from
 - Hooks: `renderHook`; demos/scenarios: `render` + queries by role/label/text.
   Test user-observable behaviour, not implementation details.
 - Timers: `vi.useFakeTimers()` and `act(() => vi.advanceTimersByTime(ms))`.
-  With user-event + fake timers use `userEvent.setup({ advanceTimers: vi.advanceTimersByTime })`.
+  Fully faked timers make Testing Library's async helpers (`findBy*`,
+  `waitFor`, user-event) wait forever on a faked `setTimeout`. Either drive
+  the UI with `fireEvent`, fake only what you need
+  (`vi.useFakeTimers({ toFake: ['setInterval', 'clearInterval', 'Date'] })`),
+  or use `vi.useFakeTimers({ shouldAdvanceTime: true })` with user-event.
+- Suspense: interactions that make a component suspend must happen inside an
+  awaited `act(async () => …)`, otherwise the test stays on the fallback.
 - Network: the MSW server is always on; override per test with
   `server.use(http.get('/api/x', () => HttpResponse.json(...)))` from `src/test/server.ts`.
 - Browser APIs jsdom lacks (`matchMedia`, `IntersectionObserver`,
   `ResizeObserver`): install fakes from `src/test/browserMocks.ts`. Test the
   unsupported path too.
+- WebSocket mocks: close server-side connections a few milliseconds after
+  opening (not synchronously) to avoid an MSW listener leak warning.
 - SSR: name the file `*.ssr.test.tsx` to run it in the Node project, and use
   `renderToString` from `react-dom/server`.
 - Assert cleanup (listeners removed, timers cleared, requests aborted).
