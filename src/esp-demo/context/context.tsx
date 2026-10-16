@@ -1,12 +1,12 @@
-import * as React from "react";
-import { createContext, useEffect, useReducer } from "react";
-import { reducer, initialState, WorkspaceState } from "./reducers";
-import { useActions } from "./actions";
-import { applyESPMiddleware } from "../common/middleware/espMiddleware";
-import { applyFormValidationMiddleware } from "../common/middleware/formValidationMiddleware";
-import { applyLoginMiddleware } from "./middleware/loginMiddleware";
-import { applyLocalStorageMiddleware } from "./middleware/localStorageMiddleware";
-import { validationMap } from "./validation";
+import * as React from 'react';
+import { createContext, useEffect, useReducer } from 'react';
+import { reducer, initialState, WorkspaceState } from './reducers';
+import { useActions } from './actions';
+import { applyESPMiddleware } from '../common/middleware/espMiddleware';
+import { applyFormValidationMiddleware } from '../common/middleware/formValidationMiddleware';
+import { applyLoginMiddleware } from './middleware/loginMiddleware';
+import { applyLocalStorageMiddleware } from './middleware/localStorageMiddleware';
+import { validationMap } from './validation';
 
 export const WorkspaceContext = createContext(initialState);
 
@@ -19,13 +19,13 @@ export const WorkspaceProvider = ({ children }) => {
   enhancedDispatch = applyFormValidationMiddleware<WorkspaceState>(
     state,
     enhancedDispatch,
-    validationMap
+    validationMap,
   );
   const actions = useActions(state, enhancedDispatch);
 
   // useEffect hooks and middleware manage side effects
   useEffect(() => {
-    console.log("WorkspaceProvider", { workspaceState: state });
+    console.log('WorkspaceProvider', { workspaceState: state });
   }, [state]);
 
   return (

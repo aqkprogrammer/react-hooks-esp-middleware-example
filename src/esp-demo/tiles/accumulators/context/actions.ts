@@ -1,25 +1,25 @@
-import { actions as espActions } from "../../../common/middleware/espMiddleware";
-import { types } from "./types";
+import { actions as espActions } from '../../../common/middleware/espMiddleware';
+import { types } from './types';
 
 // We can use actions as a proxy for dispatch in views
 export const useActions = (state, dispatch) => ({
-  addAccumulatorIfNotInList: accumulator => {
+  addAccumulatorIfNotInList: (accumulator) => {
     const index = state.accumulatorList.indexOf(accumulator);
     if (index > -1) {
-      alert("Accumulator is defined in list");
+      alert('Accumulator is defined in list');
     } else {
       dispatch({ type: types.ADD_TO_ACCUMULATOR_LIST, payload: accumulator });
     }
   },
-  typingAccumulator: accumulatorInput =>
+  typingAccumulator: (accumulatorInput) =>
     dispatch({
       type: types.TYPING_ACCUMULATOR,
-      payload: accumulatorInput
+      payload: accumulatorInput,
     }),
-  removeAccumulator: accumulator =>
+  removeAccumulator: (accumulator) =>
     dispatch({
       type: types.REMOVE_FROM_ACCUMULATOR_LIST,
-      payload: accumulator
+      payload: accumulator,
     }),
-  ...espActions(dispatch)
+  ...espActions(dispatch),
 });

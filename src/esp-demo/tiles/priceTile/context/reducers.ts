@@ -1,7 +1,7 @@
-import * as uuid from "uuid";
-import produce from "immer";
-import { types } from "./types";
-import { PriceTick } from "../../../common/services/ccyPairPriceService";
+import * as uuid from 'uuid';
+import produce from 'immer';
+import { types } from './types';
+import { PriceTick } from '../../../common/services/ccyPairPriceService';
 
 export interface PriceState {
   modelId: string; // Each tile will need a model id to register with ESP
@@ -13,15 +13,15 @@ export interface PriceState {
 export const initialState: PriceState = {
   modelId: `price-id-${uuid.v4()}`,
   prices: {},
-  priceInput: "gbpusd",
-  clickCount: 0
+  priceInput: 'gbpusd',
+  clickCount: 0,
 };
 
 export const reducer = produce((draft, action) => {
-  console.log("Price Reducer", {
+  console.log('Price Reducer', {
     oldState: JSON.stringify(draft),
     type: action.type,
-    payload: action.payload
+    payload: action.payload,
   });
   switch (action.type) {
     case types.TYPING_PRICE:
@@ -48,13 +48,13 @@ export const reducer = produce((draft, action) => {
       draft.clickCount += 1;
       return;
     case types.esp.PREPROCESS_ACTION:
-      console.log("Price Reducer opting in to handle esp.PREPROCESS_ACTION");
+      console.log('Price Reducer opting in to handle esp.PREPROCESS_ACTION');
       return;
     case types.esp.POSTPROCESS_ACTION:
       const eventTypes: string[] = action.payload;
-      console.log("Price Reducer opting in to handle esp.POSTPROCESS_ACTION");
+      console.log('Price Reducer opting in to handle esp.POSTPROCESS_ACTION');
       if (eventTypes.indexOf(types.common.KEY_PRESSED) > -1) {
-        console.log("User pressed a key");
+        console.log('User pressed a key');
       }
       return;
   }

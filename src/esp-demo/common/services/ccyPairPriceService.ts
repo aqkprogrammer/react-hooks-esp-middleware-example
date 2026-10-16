@@ -1,8 +1,8 @@
 /**
  * Fake service, 2 second ticks
  */
-import { Observable, of, never, timer } from "rxjs";
-import { map, takeWhile, finalize } from "rxjs/operators";
+import { Observable, of, never, timer } from 'rxjs';
+import { map, takeWhile, finalize } from 'rxjs/operators';
 
 export interface PriceTick {
   symbol: string;
@@ -13,7 +13,7 @@ let subscriptions = {};
 
 const createPrice = (ccyPair: string): PriceTick => ({
   symbol: ccyPair,
-  price: Math.random() * 10
+  price: Math.random() * 10,
 });
 
 export const subscribe = (ccyPair: string): Observable<PriceTick> => {
@@ -22,9 +22,9 @@ export const subscribe = (ccyPair: string): Observable<PriceTick> => {
   } else {
     subscriptions[ccyPair] = true;
     return timer(1, 2000).pipe(
-      takeWhile(v => subscriptions[ccyPair]),
+      takeWhile((v) => subscriptions[ccyPair]),
       map(() => createPrice(ccyPair)),
-      finalize(() => console.warn("ccyPair obs completed: " + ccyPair))
+      finalize(() => console.warn('ccyPair obs completed: ' + ccyPair)),
     );
   }
 };

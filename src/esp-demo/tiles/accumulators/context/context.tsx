@@ -1,9 +1,9 @@
-import * as React from "react";
-import { createContext, useContext, useReducer, useEffect } from "react";
-import { reducer, initialState } from "./reducers";
-import { useActions } from "./actions";
-import { WorkspaceContext } from "../../../context/context";
-import { applyESPMiddleware } from "../../../common/middleware/espMiddleware";
+import * as React from 'react';
+import { createContext, useContext, useReducer, useEffect } from 'react';
+import { reducer, initialState } from './reducers';
+import { useActions } from './actions';
+import { WorkspaceContext } from '../../../context/context';
+import { applyESPMiddleware } from '../../../common/middleware/espMiddleware';
 
 export const AccumulatorsContext = createContext(initialState);
 
@@ -16,9 +16,9 @@ export const AccumulatorsProvider = ({ children }) => {
   const actions = useActions(state, espDispatch);
 
   useEffect(() => {
-    console.log("AccumulatorsProvider", {
+    console.log('AccumulatorsProvider', {
       accumulatorsState: state,
-      workspaceContext: workspace
+      workspaceContext: workspace,
     });
   }, [state, workspace]);
 

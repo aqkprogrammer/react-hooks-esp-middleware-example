@@ -1,6 +1,6 @@
-import * as uuid from "uuid";
-import produce from "immer";
-import { types } from "./types";
+import * as uuid from 'uuid';
+import produce from 'immer';
+import { types } from './types';
 
 export interface AccumulatorsState {
   modelId: string; // Each tile will need a model id to register with ESP
@@ -11,16 +11,16 @@ export interface AccumulatorsState {
 
 export const initialState: AccumulatorsState = {
   modelId: `accumulators-id-${uuid.v4()}`,
-  accumulatorInput: "",
-  accumulatorList: ["Some Accumulator", "Other Accumulator"],
-  notionalField: null
+  accumulatorInput: '',
+  accumulatorList: ['Some Accumulator', 'Other Accumulator'],
+  notionalField: null,
 };
 
 export const reducer = produce((draft, action) => {
-  console.log("Accumulators Reducer", {
+  console.log('Accumulators Reducer', {
     oldState: JSON.stringify(draft),
     type: action.type,
-    payload: action.payload
+    payload: action.payload,
   });
   switch (action.type) {
     case types.TYPING_ACCUMULATOR:
@@ -37,19 +37,19 @@ export const reducer = produce((draft, action) => {
       return;
     case types.REMOVE_FROM_ACCUMULATOR_LIST:
       draft.accumulatorList = draft.accumulatorList.filter(
-        accumulator => accumulator !== action.payload
+        (accumulator) => accumulator !== action.payload,
       );
       return;
     case types.common.KEY_PRESSED: {
-      console.log('acc - types.common.KEY_PRESSED', action.payload.key)
+      console.log('acc - types.common.KEY_PRESSED', action.payload.key);
       switch (action.payload.key) {
-        case "Delete":
+        case 'Delete':
           if (!draft.accumulatorList.length) {
             return;
           }
           draft.accumulatorList.splice(0, 1);
           return;
-        case "Insert":
+        case 'Insert':
           if (!draft.accumulatorInput) {
             return;
           }
@@ -61,11 +61,9 @@ export const reducer = produce((draft, action) => {
     }
     case types.esp.POSTPROCESS_ACTION:
       const eventTypes: string[] = action.payload;
-      console.log(
-        "Accumulators Reducer opting in to handle esp.POSTPROCESS_ACTION"
-      );
+      console.log('Accumulators Reducer opting in to handle esp.POSTPROCESS_ACTION');
       if (eventTypes.indexOf(types.common.KEY_PRESSED) > -1) {
-        console.log("User pressed a key");
+        console.log('User pressed a key');
       }
       return;
   }

@@ -1,5 +1,5 @@
-import { useCallback, useState } from "react";
-import useEventListener from "./useEventListener";
+import { useCallback, useState } from 'react';
+import useEventListener from './useEventListener';
 
 const useKeyPress = (targetKey: string, action: () => void) => {
   const [keyPressed, setKeyPressed] = useState(false);
@@ -11,7 +11,7 @@ const useKeyPress = (targetKey: string, action: () => void) => {
         action();
       }
     },
-    [action, targetKey, setKeyPressed]
+    [action, targetKey, setKeyPressed],
   );
 
   const onKeyUp = useCallback(
@@ -20,11 +20,11 @@ const useKeyPress = (targetKey: string, action: () => void) => {
         setKeyPressed(false);
       }
     },
-    [targetKey, setKeyPressed]
+    [targetKey, setKeyPressed],
   );
 
-  useEventListener("keydown", onKeyDown);
-  useEventListener("keyup", onKeyUp);
+  useEventListener('keydown', onKeyDown);
+  useEventListener('keyup', onKeyUp);
 
   return [keyPressed, targetKey];
 };

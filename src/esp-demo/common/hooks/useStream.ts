@@ -1,5 +1,5 @@
-import { Observable } from "rxjs";
-import { Action } from "../types/action";
+import { Observable } from 'rxjs';
+import { Action } from '../types/action';
 
 export type StreamHandler = (input: Observable<Action>) => Observable<Action>;
 export interface StreamHandlerMap {
@@ -7,7 +7,7 @@ export interface StreamHandlerMap {
 }
 
 export const ACTION_TYPES = {
-  ERROR: "UNEXPECTED_ERROR"
+  ERROR: 'UNEXPECTED_ERROR',
 };
 
 // TODO: Clean up observables on individual unsubscribes
@@ -17,11 +17,11 @@ export function useStream<TState>(
   state: TState,
   dispatch: any,
   map: StreamHandlerMap,
-  cancelAllActionType?: string
+  cancelAllActionType?: string,
 ) {
   const cancelAllHandler = (action?: Action) => {
     console.warn(`Unsubscribing observables (${observables.length})`);
-    observables.forEach(obs => obs.unsubscribe());
+    observables.forEach((obs) => obs.unsubscribe());
     observables.length = 0;
     if (action) {
       dispatch(action);
@@ -31,16 +31,14 @@ export function useStream<TState>(
     dispatch(action);
     const streamHandler = map[action.type];
     if (streamHandler) {
-      console.info("Creating observer for", action);
-      const obs = streamHandler(
-        Observable.create(observer => observer.next(action))
-      ).subscribe(
-        res => dispatch(res),
-        err =>
+      console.info('Creating observer for', action);
+      const obs = streamHandler(Observable.create((observer) => observer.next(action))).subscribe(
+        (res) => dispatch(res),
+        (err) =>
           dispatch({
             type: ACTION_TYPES.ERROR,
-            payload: err
-          })
+            payload: err,
+          }),
       );
       observables.push(obs);
     }

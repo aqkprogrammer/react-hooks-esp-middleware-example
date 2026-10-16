@@ -1,8 +1,8 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react';
 
 export enum EntryType {
-  User = "User",
-  System = "System"
+  User = 'User',
+  System = 'System',
 }
 
 /**
@@ -12,7 +12,7 @@ export enum EntryType {
  *
  * TODO: Created this before the formValidationMiddleware stuff, revisit
  */
-const useFormField = (value = "", setValue?: any) => {
+const useFormField = (value = '', setValue?: any) => {
   const [isDirty, setIsDirty] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [entryType, setEntryType] = useState(EntryType.System);
@@ -41,7 +41,7 @@ const useFormField = (value = "", setValue?: any) => {
 
   const isValid = !isDirty || !isEmpty;
 
-  const onChange = event => {
+  const onChange = (event) => {
     event && event.preventDefault();
     setValueFromUser(event.target.value);
   };
@@ -71,8 +71,8 @@ const useFormField = (value = "", setValue?: any) => {
     entryType,
     bind: {
       value,
-      onChange
-    }
+      onChange,
+    },
   };
 };
 

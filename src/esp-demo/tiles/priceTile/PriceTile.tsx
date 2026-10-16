@@ -1,10 +1,10 @@
-import * as React from "react";
-import { useCallback, useContext } from "react";
-import cn from "classnames";
-import useFormField from "../../common/hooks/useFormField";
-import { WorkspaceContext } from "../../context/context";
-import { PriceContext } from "./context/context";
-import "./styles.css";
+import * as React from 'react';
+import { useCallback, useContext } from 'react';
+import cn from 'classnames';
+import useFormField from '../../common/hooks/useFormField';
+import { WorkspaceContext } from '../../context/context';
+import { PriceContext } from './context/context';
+import './styles.css';
 
 export function PriceTile() {
   const { state: workspaceState } = useContext(WorkspaceContext);
@@ -14,41 +14,39 @@ export function PriceTile() {
   const priceKeys = Object.keys(prices);
 
   const form = {
-    price: useFormField(priceInput, value => {
+    price: useFormField(priceInput, (value) => {
       actions.typingPrice(value);
-    })
+    }),
   };
 
   const onSubscribePrice = useCallback(
-    event => {
+    (event) => {
       event && event.preventDefault();
       actions.subscribe(priceInput);
     },
-    [actions, priceInput]
+    [actions, priceInput],
   );
 
-  const onUnSubscribePrice = useCallback(pair => actions.unsubscribe(pair), [
-    actions
-  ]);
+  const onUnSubscribePrice = useCallback((pair) => actions.unsubscribe(pair), [actions]);
 
   const onUnSubscribeAllPrices = useCallback(
-    event => {
+    (event) => {
       event && event.preventDefault();
       actions.unsubscribeAllPrices();
     },
-    [actions]
+    [actions],
   );
 
   const onClickCountPressed = useCallback(
-    event => {
+    (event) => {
       event && event.preventDefault();
       actions.clicked();
     },
-    [actions]
+    [actions],
   );
 
-  const tileClassName = cn("priceTile", workspaceState.themeClassName, {
-    loggedIn
+  const tileClassName = cn('priceTile', workspaceState.themeClassName, {
+    loggedIn,
   });
 
   return (
@@ -60,9 +58,7 @@ export function PriceTile() {
           <button type="submit" onClick={onSubscribePrice}>
             Add Pair
           </button>
-          {!!priceKeys.length && (
-            <button onClick={onUnSubscribeAllPrices}>Unsubscribe All</button>
-          )}
+          {!!priceKeys.length && <button onClick={onUnSubscribeAllPrices}>Unsubscribe All</button>}
         </fieldset>
         <fieldset>
           <span>Click Count: {clickCount}</span>
@@ -72,12 +68,7 @@ export function PriceTile() {
       <section className="priceList">
         <ul>
           {priceKeys.map((key: string, idx: number) => (
-            <PriceTicker
-              key={key}
-              symbol={key}
-              price={prices[key]}
-              onDelete={onUnSubscribePrice}
-            />
+            <PriceTicker key={key} symbol={key} price={prices[key]} onDelete={onUnSubscribePrice} />
           ))}
         </ul>
       </section>
@@ -90,15 +81,13 @@ interface PriceTickerProps {
   price: number;
   onDelete: (key: string) => void;
 }
-const PriceTicker = React.memo(
-  ({ symbol, price, onDelete }: PriceTickerProps) => {
-    const callback = useCallback(() => onDelete(symbol), [symbol, onDelete]);
-    return (
-      <li className="priceTicker">
-        <span>{symbol}</span>
-        <span>{price}</span>
-        <button onClick={callback}>Unsubscribe</button>
-      </li>
-    );
-  }
-);
+const PriceTicker = React.memo(({ symbol, price, onDelete }: PriceTickerProps) => {
+  const callback = useCallback(() => onDelete(symbol), [symbol, onDelete]);
+  return (
+    <li className="priceTicker">
+      <span>{symbol}</span>
+      <span>{price}</span>
+      <button onClick={callback}>Unsubscribe</button>
+    </li>
+  );
+});

@@ -2,7 +2,7 @@
  * There should be another level to this demo, Workspace > Package > Tile, but I've just merged
  * the concept of package into workspace (shell) to keep it simple.
  */
-import { EventEnvelope, ObservationStage, Router } from "esp-js";
+import { EventEnvelope, ObservationStage, Router } from 'esp-js';
 
 /**
  * DisposableBase needs to be imported as source as I get a "cannot be invoked without 'new' error"
@@ -10,15 +10,15 @@ import { EventEnvelope, ObservationStage, Router } from "esp-js";
  * Might be a way to fix it via package.json > browserslist or the tsconfig.json file, which I've
  * aligned to what we currently have in the dtp-client-web project.
  */
-import { DisposableBase } from "esp-js/src/system/disposables/disposableBase";
+import { DisposableBase } from 'esp-js/src/system/disposables/disposableBase';
 
 export const espRouter = new Router(); // Sould be the shared workspace / shell router
 
 export const types = {
-  PUBLISH_ACTION: "ESP_PUBLISH_ACTION",
-  BROADCAST_ACTION: "ESP_BROADCAST_ACTION",
-  PREPROCESS_ACTION: "ESP_PREPROCESS_ACTION",
-  POSTPROCESS_ACTION: "ESP_POSTPROCESS_ACTION"
+  PUBLISH_ACTION: 'ESP_PUBLISH_ACTION',
+  BROADCAST_ACTION: 'ESP_BROADCAST_ACTION',
+  PREPROCESS_ACTION: 'ESP_PREPROCESS_ACTION',
+  POSTPROCESS_ACTION: 'ESP_POSTPROCESS_ACTION',
 };
 
 /**
@@ -30,8 +30,8 @@ export const actions = (dispatch: any) => ({
       type: types.PUBLISH_ACTION,
       payload: {
         eventType,
-        event
-      }
+        event,
+      },
     });
   },
   espBroadcast: (eventType: string, event: any) => {
@@ -39,15 +39,18 @@ export const actions = (dispatch: any) => ({
       type: types.BROADCAST_ACTION,
       payload: {
         eventType,
-        event
-      }
+        event,
+      },
     });
-  }
+  },
 });
 
 // Keeping this simple, but chould be expanded to have more of the ModelBase type methods
 class EspEventBridgeModel extends DisposableBase {
-  constructor(public readonly modelId: string, public readonly dispatch: any) {
+  constructor(
+    public readonly modelId: string,
+    public readonly dispatch: any,
+  ) {
     super();
   }
   preProcess() {
@@ -101,16 +104,16 @@ export const applyESPMiddleware = (modelId: string, dispatch: any) => {
 
   registerEventBridge(eventBridgeModel);
 
-  const actionHandler = action => {
+  const actionHandler = (action) => {
     switch (action.type) {
       case types.PUBLISH_ACTION: {
-        console.log("Publish an event on the ESP router", action.payload);
+        console.log('Publish an event on the ESP router', action.payload);
         const { eventType, event } = action.payload;
         espRouter.publishEvent(modelId, eventType, event);
         break;
       }
       case types.BROADCAST_ACTION: {
-        console.log("Broadcast an event on the ESP router", action.payload);
+        console.log('Broadcast an event on the ESP router', action.payload);
         const { eventType, event } = action.payload;
         espRouter.broadcastEvent(eventType, event);
         break;
@@ -121,7 +124,7 @@ export const applyESPMiddleware = (modelId: string, dispatch: any) => {
   };
 
   const disposeHandler = () => {
-    console.log("Disposing ESP middleware");
+    console.log('Disposing ESP middleware');
     eventBridgeModel.dispose();
   };
 

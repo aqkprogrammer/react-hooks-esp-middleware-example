@@ -1,24 +1,24 @@
-import { actions as espActions } from "../../../common/middleware/espMiddleware";
-import { types } from "./types";
+import { actions as espActions } from '../../../common/middleware/espMiddleware';
+import { types } from './types';
 
 // We can use actions as a proxy for dispatch in views
 export const useActions = (state, dispatch) => ({
-  subscribe: ccyPair =>
+  subscribe: (ccyPair) =>
     dispatch({
       type: types.SUBSCRIBE_PRICE,
-      payload: ccyPair
+      payload: ccyPair,
     }),
-  unsubscribe: ccyPair =>
+  unsubscribe: (ccyPair) =>
     dispatch({
       type: types.UNSUBSCRIBE_PRICE,
-      payload: ccyPair
+      payload: ccyPair,
     }),
   clicked: () => dispatch({ type: types.CLICKED }),
   unsubscribeAllPrices: () => dispatch({ type: types.UNSUBSCRIBE_ALL_PRICES }),
-  typingPrice: priceInput =>
+  typingPrice: (priceInput) =>
     dispatch({
       type: types.TYPING_PRICE,
-      payload: priceInput
+      payload: priceInput,
     }),
-  ...espActions(dispatch)
+  ...espActions(dispatch),
 });
