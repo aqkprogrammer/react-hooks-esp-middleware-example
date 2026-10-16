@@ -1,0 +1,38 @@
+.disclosure-demo-accordion {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+}
+.disclosure-demo-item + .disclosure-demo-item {
+  border-top: 1px solid var(--border);
+}
+.disclosure-demo-heading {
+  margin: 0;
+}
+.disclosure-demo-trigger {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  width: 100%;
+  padding: 0.6rem 0.75rem;
+  border: 0;
+  background: transparent;
+  color: var(--fg);
+  font: inherit;
+  font-weight: 600;
+  text-align: left;
+  cursor: pointer;
+}
+.disclosure-demo-trigger:hover {
+  background: var(--bg-sunken);
+}
+.disclosure-demo-icon {
+  display: inline-block;
+  width: 1ch;
+  color: var(--accent);
+}
+.disclosure-demo-panel {
+  padding: 0 0.75rem 0.6rem 2.1rem;
+}
+.disclosure-demo-panel p {
+  margin: 0;
+}

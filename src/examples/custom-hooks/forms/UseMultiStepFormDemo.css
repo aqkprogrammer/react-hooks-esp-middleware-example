@@ -1,0 +1,17 @@
+.wizard-demo-steps {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin: 0 0 0.6rem;
+  padding: 0;
+  list-style: none;
+}
+.wizard-demo-steps [aria-current='step'] {
+  background: var(--accent-soft);
+  border-color: var(--accent);
+  color: var(--accent);
+}
+.wizard-demo-heading {
+  margin: 0;
+  font-size: 1rem;
+}
