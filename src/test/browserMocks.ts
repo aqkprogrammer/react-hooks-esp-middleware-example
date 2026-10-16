@@ -184,18 +184,43 @@ export function installResizeObserver(): typeof MockResizeObserver {
 // Misc helpers
 // ---------------------------------------------------------------------------
 
-/** Override a (possibly read-only) property on an object for one test. */
+/** Original descriptors of every overridden property, keyed by target. */
+const originals = new Map<object, Map<PropertyKey, PropertyDescriptor | undefined>>();
+
+function restoreOriginal(target: object, key: PropertyKey): void {
+  const byKey = originals.get(target);
+  if (!byKey?.has(key)) return;
+  const descriptor = byKey.get(key);
+  if (descriptor) Object.defineProperty(target, key, descriptor);
+  else delete (target as Record<PropertyKey, unknown>)[key];
+  byKey.delete(key);
+  if (byKey.size === 0) originals.delete(target);
+}
+
+/**
+ * Override a (possibly read-only) property on an object for one test.
+ *
+ * The returned function restores the property's *original* descriptor, so
+ * nested overrides can be restored in any order. Anything still overridden is
+ * restored automatically after each test (see ./setup.ts).
+ */
 export function overrideProperty<T extends object, K extends PropertyKey>(
   target: T,
   key: K,
   value: unknown,
 ): () => void {
-  const descriptor = Object.getOwnPropertyDescriptor(target, key);
+  const byKey = originals.get(target) ?? new Map<PropertyKey, PropertyDescriptor | undefined>();
+  originals.set(target, byKey);
+  if (!byKey.has(key)) byKey.set(key, Object.getOwnPropertyDescriptor(target, key));
   Object.defineProperty(target, key, { configurable: true, get: () => value });
-  return () => {
-    if (descriptor) Object.defineProperty(target, key, descriptor);
-    else delete (target as Record<PropertyKey, unknown>)[key];
-  };
+  return () => restoreOriginal(target, key);
+}
+
+/** Restores every property overridden with `overrideProperty`. */
+export function restoreOverriddenProperties(): void {
+  for (const [target, byKey] of [...originals]) {
+    for (const key of [...byKey.keys()]) restoreOriginal(target, key);
+  }
 }
 
 /** Set `document.visibilityState` and dispatch `visibilitychange`. */

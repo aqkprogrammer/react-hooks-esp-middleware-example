@@ -2,6 +2,7 @@ import '@testing-library/jest-dom/vitest';
 import { cleanup } from '@testing-library/react';
 import { afterAll, afterEach, beforeAll } from 'vitest';
 import { resetMockDb } from '../mocks/handlers';
+import { restoreOverriddenProperties } from './browserMocks';
 import { server } from './server';
 
 // Node's fetch (undici) rejects relative URLs, while browsers resolve them
@@ -18,6 +19,7 @@ globalThis.fetch = (input: RequestInfo | URL, init?: RequestInit) => {
 beforeAll(() => server.listen({ onUnhandledRequest: 'error' }));
 afterEach(() => {
   cleanup();
+  restoreOverriddenProperties();
   server.resetHandlers();
   resetMockDb();
   window.localStorage.clear();
