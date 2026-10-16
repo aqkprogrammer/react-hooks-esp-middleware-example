@@ -1,0 +1,25 @@
+.auth-grid {
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
+  align-items: start;
+}
+
+.auth-form {
+  max-width: 22rem;
+}
+
+.auth-subtitle {
+  margin: 0;
+}
+
+.auth-note-form .input {
+  flex: 1 1 12rem;
+}
+
+.auth-prompt p {
+  margin: 0;
+}
+
+.panel-title:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 4px;
+}
