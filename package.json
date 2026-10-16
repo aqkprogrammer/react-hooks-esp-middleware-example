@@ -2,7 +2,7 @@
   "name": "react-hooks-esp-middleware-example",
   "version": "2.0.0",
   "private": true,
-  "description": "React Hooks Playground — from fundamentals to advanced production patterns, built around an esp-js event-middleware integration for React hooks.",
+  "description": "React Hooks Playground \u2014 from fundamentals to advanced production patterns, built around an esp-js event-middleware integration for React hooks.",
   "keywords": [
     "react",
     "react-hooks",
@@ -89,5 +89,10 @@
     "workerDirectory": [
       "public"
     ]
-  }
+  },
+  "sideEffects": [
+    "*.css",
+    "./src/main.tsx",
+    "./src/mocks/**"
+  ]
 }

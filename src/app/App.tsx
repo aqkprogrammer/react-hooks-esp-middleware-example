@@ -1,5 +1,5 @@
 import { useEffect, useId, useRef, useState, type FormEvent } from 'react';
-import { useEventListener } from '../hooks';
+import { useEventListener } from '../hooks/browser/useEventListener';
 import { Link } from './components/Link';
 import { ApiReferencePage } from './pages/ApiReferencePage';
 import { BrowsePage } from './pages/BrowsePage';

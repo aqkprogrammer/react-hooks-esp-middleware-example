@@ -9,6 +9,19 @@ export default defineConfig({
   plugins: [react()],
   build: {
     sourcemap: true,
+    rolldownOptions: {
+      output: {
+        // Separately cacheable chunks: the React runtime changes rarely, the
+        // catalog (all topic text, needed for search) changes with content.
+        codeSplitting: {
+          groups: [
+            { name: 'react', test: /node_modules[\\/](react|react-dom|scheduler)[\\/]/ },
+            // `[^?]*$` skips the `?raw` copies loaded by the source viewer.
+            { name: 'catalog', test: /src[\\/]catalog[\\/][^?]*$/ },
+          ],
+        },
+      },
+    },
   },
   test: {
     globals: true,

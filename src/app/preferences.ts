@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { useLocalStorage } from '../hooks';
+import { useLocalStorage } from '../hooks/storage/useLocalStorage';
 
 export type ThemePreference = 'system' | 'light' | 'dark';
 
