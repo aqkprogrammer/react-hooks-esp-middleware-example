@@ -1,39 +1,29 @@
-import { types } from './types';
-import { Observable } from 'rxjs';
-import { mergeMap, map, tap } from 'rxjs/operators';
-import { StreamHandlerMap } from '../../../common/hooks/useStream';
-import { Action } from '../../../common/types/action';
-import {
-  subscribe,
-  unsubscribe,
-  unsubscribeAll,
-} from '../../../common/services/ccyPairPriceService';
+import { mergeMap, map, type Observable } from 'rxjs';
+import type { StreamHandlerMap } from '../../../common/middleware/streamMiddleware';
+import type { CcyPairPriceService } from '../../../common/services/ccyPairPriceService';
+import { types, type PriceAction } from './types';
 
-export const priceStreamHandlerMap: StreamHandlerMap = {
-  [types.SUBSCRIBE_PRICE]: (inputObs: Observable<Action>) => {
-    return inputObs.pipe(
-      mergeMap((action) => subscribe(action.payload)),
-      map((priceTick) => ({
-        type: types.PRICE_UPDATE,
-        payload: priceTick,
-      })),
-    );
-  },
-  [types.UNSUBSCRIBE_PRICE]: (inputObs: Observable<Action>) => {
-    return inputObs.pipe(
-      mergeMap((action) => unsubscribe(action.payload)),
-      tap((ccyPair) => console.warn('Unsubscribed', ccyPair)),
-      map((ccyPair) => ({
-        type: types.PRICE_UNSUBSCRIBED,
-        payload: ccyPair,
-      })),
-    );
-  },
-  [types.UNSUBSCRIBE_ALL_PRICES]: (inputObs: Observable<Action>) => {
-    return inputObs.pipe(
-      mergeMap((action) => unsubscribeAll()),
-      tap((keys: string[]) => console.warn('Unsubscribed All Prices', keys)),
-      map(() => ({ type: types.ALL_PRICES_UNSUBSCRIBED })),
-    );
-  },
-};
+/** RxJS handlers: each turns an incoming action into a stream of result actions. */
+export const createPriceStreamHandlerMap = (
+  service: CcyPairPriceService,
+): StreamHandlerMap<PriceAction> => ({
+  [types.SUBSCRIBE_PRICE]: (input: Observable<PriceAction>) =>
+    input.pipe(
+      mergeMap((action) =>
+        service.subscribe(action.type === types.SUBSCRIBE_PRICE ? action.payload : ''),
+      ),
+      map((priceTick): PriceAction => ({ type: types.PRICE_UPDATE, payload: priceTick })),
+    ),
+  [types.UNSUBSCRIBE_PRICE]: (input: Observable<PriceAction>) =>
+    input.pipe(
+      mergeMap((action) =>
+        service.unsubscribe(action.type === types.UNSUBSCRIBE_PRICE ? action.payload : ''),
+      ),
+      map((ccyPair): PriceAction => ({ type: types.PRICE_UNSUBSCRIBED, payload: ccyPair })),
+    ),
+  [types.UNSUBSCRIBE_ALL_PRICES]: (input: Observable<PriceAction>) =>
+    input.pipe(
+      mergeMap(() => service.unsubscribeAll()),
+      map((): PriceAction => ({ type: types.ALL_PRICES_UNSUBSCRIBED })),
+    ),
+});

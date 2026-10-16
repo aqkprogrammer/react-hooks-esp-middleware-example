@@ -1,28 +1,26 @@
-import * as uuid from 'uuid';
-import produce from 'immer';
-import { types } from './types';
-import { PriceTick } from '../../../common/services/ccyPairPriceService';
+import { produce } from 'immer';
+import { types, type PriceAction } from './types';
 
 export interface PriceState {
-  modelId: string; // Each tile will need a model id to register with ESP
-  prices: { [key: string]: number };
+  prices: Record<string, number>;
   priceInput: string;
   clickCount: number;
+  /** Event types processed in the last esp-js dispatch loop (from POSTPROCESS). */
+  lastEspEvents: string[];
+  lastKeyEvent: string | null;
+  error: string | null;
 }
 
 export const initialState: PriceState = {
-  modelId: `price-id-${uuid.v4()}`,
   prices: {},
   priceInput: 'gbpusd',
   clickCount: 0,
+  lastEspEvents: [],
+  lastKeyEvent: null,
+  error: null,
 };
 
-export const reducer = produce((draft, action) => {
-  console.log('Price Reducer', {
-    oldState: JSON.stringify(draft),
-    type: action.type,
-    payload: action.payload,
-  });
+export const reducer = produce((draft: PriceState, action: PriceAction) => {
   switch (action.type) {
     case types.TYPING_PRICE:
       draft.priceInput = action.payload;
@@ -31,31 +29,30 @@ export const reducer = produce((draft, action) => {
       draft.priceInput = initialState.priceInput;
       return;
     case types.PRICE_UPDATE:
-      const priceTick: PriceTick = action.payload;
-      draft.prices[priceTick.symbol] = priceTick.price;
+      draft.prices[action.payload.symbol] = action.payload.price;
       return;
-    case types.PRICE_UNSUBSCRIBED: {
-      const ccyPair: string = action.payload;
-      delete draft.prices[ccyPair];
+    case types.PRICE_UNSUBSCRIBED:
+      delete draft.prices[action.payload];
       return;
-    }
-    case types.ALL_PRICES_UNSUBSCRIBED: {
+    case types.ALL_PRICES_UNSUBSCRIBED:
       draft.prices = {};
       draft.priceInput = initialState.priceInput;
       return;
-    }
     case types.CLICKED:
       draft.clickCount += 1;
       return;
+    case types.stream.ERROR:
+      draft.error = action.payload;
+      return;
+    // This tile does not own the list of accumulators, but it observes the
+    // KEY_PRESSED event so a *broadcast* from another tile reaches it.
+    case types.common.KEY_PRESSED:
+      draft.lastKeyEvent = action.payload.key;
+      return;
     case types.esp.PREPROCESS_ACTION:
-      console.log('Price Reducer opting in to handle esp.PREPROCESS_ACTION');
       return;
     case types.esp.POSTPROCESS_ACTION:
-      const eventTypes: string[] = action.payload;
-      console.log('Price Reducer opting in to handle esp.POSTPROCESS_ACTION');
-      if (eventTypes.indexOf(types.common.KEY_PRESSED) > -1) {
-        console.log('User pressed a key');
-      }
+      draft.lastEspEvents = action.payload;
       return;
   }
 });

@@ -1,100 +1,76 @@
 /**
- * This wouldn't exist, it's just here to act as the shell/workspace to enable the demo,
- * by simulating this layer.
+ * This wouldn't exist in a real app — it acts as the shell/workspace to
+ * enable the demo by simulating that layer.
  */
-import * as uuid from 'uuid';
-import produce from 'immer';
-import { types } from './types';
+import { produce } from 'immer';
 import { themeClassName } from './middleware/localStorageMiddleware';
+import { types, type Theme, type WorkspaceAction } from './types';
+
+interface FieldState {
+  errors: string[];
+  input: string;
+}
 
 export interface WorkspaceState {
-  modelId: string;
-  themeClassName: string;
-  userToken: string;
-  /**
-   * WIP:
-   * Put all user input into a forms object, for validation etc
-   */
+  themeClassName: Theme;
+  userToken: string | null;
+  loginStatus: 'idle' | 'pending';
+  loginError: string | null;
   forms: {
     login: {
-      errors: any[];
-      username: {
-        errors: any[];
-        input: string;
-      };
-      password: {
-        errors: any[];
-        input: string;
-      };
+      errors: string[];
+      username: FieldState;
+      password: FieldState;
     };
   };
 }
 
-export const initialState: WorkspaceState = {
-  modelId: `workspace-id-${uuid.v4()}`,
-  themeClassName: themeClassName() || 'external',
-  userToken: null,
-  // WIP
-  forms: {
-    login: {
-      errors: [],
-      username: {
-        errors: [],
-        input: '',
-      },
-      password: {
-        errors: [],
-        input: '',
-      },
-    },
-  },
-};
+const emptyLoginForm = (): WorkspaceState['forms']['login'] => ({
+  errors: [],
+  username: { errors: [], input: '' },
+  password: { errors: [], input: '' },
+});
 
-export const reducer = produce((draft, action) => {
-  console.log('Workspace Reducer', {
-    oldState: JSON.stringify(draft),
-    type: action.type,
-    payload: action.payload,
-  });
+export const createInitialState = (): WorkspaceState => ({
+  themeClassName: themeClassName() ?? 'external',
+  userToken: null,
+  loginStatus: 'idle',
+  loginError: null,
+  forms: { login: emptyLoginForm() },
+});
+
+export const reducer = produce((draft: WorkspaceState, action: WorkspaceAction) => {
   switch (action.type) {
+    case types.auth.LOGIN_REQUEST_ACTION:
+      draft.loginStatus = 'pending';
+      draft.loginError = null;
+      return;
     case types.auth.LOGIN_SUCCESS_ACTION:
-      console.log('LOGIN_SUCCESS_ACTION');
       draft.userToken = action.payload.token;
-      draft.forms.login.errors = [];
-      draft.forms.login.username.input = '';
-      draft.forms.login.username.errors = [];
-      draft.forms.login.password.input = '';
-      draft.forms.login.password.errors = [];
+      draft.loginStatus = 'idle';
+      draft.forms.login = emptyLoginForm();
       return;
     case types.auth.LOGIN_FAILURE_ACTION:
-      console.warn('LOGIN_FAILURE_ACTION');
+      draft.loginStatus = 'idle';
+      draft.loginError = action.payload.message;
       return;
     case types.auth.LOGOUT_SUCCESS_ACTION:
-      console.log('LOGOUT_SUCCESS_ACTION');
-      delete draft.userToken;
+      draft.userToken = null;
       return;
     case types.SET_THEME_ACTION:
-      console.log('SET_THEME_ACTION');
       draft.themeClassName = action.payload;
       return;
-    case types.TYPING_USERNAME:
-      draft.forms.login.username.input = action.payload;
-      return;
-    case types.TYPING_PASSWORD:
-      draft.forms.login.password.input = action.payload;
-      return;
-    case types.TYPING:
+    case types.TYPING: {
       const { input, fieldKey, formKey } = action.payload;
       draft.forms[formKey][fieldKey].input = input;
       return;
-    case types.validation.VALIDATION_FAILURE:
-      const errors: any = action.payload;
-      console.log('VALIDATION_FAILURE', errors);
-      if (errors.login) {
-        draft.forms.login.errors = errors.login.errors;
-        draft.forms.login.username.errors = errors.login.username;
-        draft.forms.login.password.errors = errors.login.password;
-      }
+    }
+    case types.validation.VALIDATION_FAILURE: {
+      const { login } = action.payload;
+      draft.forms.login.errors = login.errors;
+      draft.forms.login.username.errors = login.username;
+      draft.forms.login.password.errors = login.password;
       return;
+    }
   }
 });

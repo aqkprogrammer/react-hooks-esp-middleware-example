@@ -1,33 +1,19 @@
-import { actions as espActions } from '../common/middleware/espMiddleware';
-import { types } from './types';
+import type { Dispatch } from '../../middleware/reducer/types';
+import { types, type LoginField, type Theme, type WorkspaceAction } from './types';
 
-// We can use actions as a proxy for dispatch in views
-export const useActions = (state, dispatch) => ({
-  triggerAction: (payload, type = types.TRIGGER_ACTION) => dispatch({ type, payload }),
-  setTheme: (themeClassName: string) =>
+/**
+ * Action creators bound to `dispatch` — "we can use actions as a proxy for
+ * dispatch in views". Renamed from `useActions` because it calls no hooks
+ * (the `use` prefix is reserved for functions that do).
+ */
+export const createActions = (dispatch: Dispatch<WorkspaceAction>) => ({
+  login: (username: string, password: string) =>
+    dispatch({ type: types.auth.LOGIN_REQUEST_ACTION, payload: { username, password } }),
+  logout: () => dispatch({ type: types.auth.LOGOUT_REQUEST_ACTION }),
+  setTheme: (themeClassName: Theme) =>
     dispatch({ type: types.SET_THEME_ACTION, payload: themeClassName }),
-  typingUsername: (input) =>
-    dispatch({
-      type: types.TYPING_USERNAME,
-      payload: input,
-    }),
-  typingPassword: (input) =>
-    dispatch({
-      type: types.TYPING_PASSWORD,
-      payload: input,
-    }),
-  typing: (
-    input: string,
-    fieldKey: string, // enum?
-    formKey: string,
-  ) =>
-    dispatch({
-      type: types.TYPING,
-      payload: {
-        input,
-        fieldKey,
-        formKey,
-      },
-    }),
-  ...espActions(dispatch),
+  typing: (input: string, fieldKey: LoginField, formKey: 'login' = 'login') =>
+    dispatch({ type: types.TYPING, payload: { input, fieldKey, formKey } }),
 });
+
+export type WorkspaceActions = ReturnType<typeof createActions>;

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState, type ChangeEvent } from 'react';
 
 export enum EntryType {
   User = 'User',
@@ -6,28 +6,23 @@ export enum EntryType {
 }
 
 /**
- * Not suggesting we replace the ui-fields stuff, just don't want
- * to re-create that here for the example, so using something like
- * this for now.
+ * The original example's lightweight field hook (it predates the form
+ * validation middleware). It can be controlled — `value` + `setValue` come
+ * from a reducer — or uncontrolled, using internal state.
  *
- * TODO: Created this before the formValidationMiddleware stuff, revisit
+ * Migration notes: `isDirty` is now set by user input and `validate()`
+ * instead of an effect that watched `value`, removing an extra render, and the
+ * hook is fully typed.
  */
-const useFormField = (value = '', setValue?: any) => {
+const useFormField = (value?: string, setValue?: (value: string) => void) => {
   const [isDirty, setIsDirty] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [entryType, setEntryType] = useState(EntryType.System);
-  const [internalValue, internalSetValue] = useState(value);
-  value = value ? value : internalValue;
-  setValue = setValue ? setValue : internalSetValue;
-
-  useEffect(() => {
-    if (value.length) {
-      setIsDirty(true);
-    }
-  }, [value]);
+  const [internalValue, internalSetValue] = useState(value ?? '');
+  const currentValue = value ?? internalValue;
+  const write = setValue ?? internalSetValue;
 
   const reset = () => {
-    // setValue(initialValue);
     setIsDirty(false);
     setIsSubmitted(false);
   };
@@ -37,28 +32,27 @@ const useFormField = (value = '', setValue?: any) => {
     setIsSubmitted(true);
   };
 
-  const isEmpty = value.length === 0;
-
+  const isEmpty = currentValue.length === 0;
   const isValid = !isDirty || !isEmpty;
 
-  const onChange = (event) => {
-    event && event.preventDefault();
+  const setValueFromSystem = (next: string) => {
+    setEntryType(EntryType.System);
+    write(next);
+  };
+
+  const setValueFromUser = (next: string) => {
+    setEntryType(EntryType.User);
+    setIsDirty(true);
+    write(next);
+  };
+
+  const onChange = (event: ChangeEvent<HTMLInputElement>) => {
     setValueFromUser(event.target.value);
   };
 
-  const setValueFromSystem = (value: string) => {
-    setEntryType(EntryType.System);
-    setValue(value);
-  };
-
-  const setValueFromUser = (value: string) => {
-    setEntryType(EntryType.User);
-    setValue(value);
-  };
-
   return {
-    value,
-    setValue,
+    value: currentValue,
+    setValue: write,
     reset,
     validate,
     isEmpty,
@@ -70,7 +64,7 @@ const useFormField = (value = '', setValue?: any) => {
     setValueFromUser,
     entryType,
     bind: {
-      value,
+      value: currentValue,
       onChange,
     },
   };

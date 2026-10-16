@@ -31,7 +31,7 @@
   border: lightgreen 0.3em solid;
 }
 
-.priceTile > h1 {
+.priceTile > h3 {
   font-size: 1.3em;
   padding: 0.3em;
   border-bottom: 0.2em solid rgba(0, 0, 0, 0.1);
@@ -41,7 +41,7 @@
   align-items: center;
 }
 
-.priceTile.loggedIn > h1 span {
+.priceTile.loggedIn > h3 span {
   font-size: 0.7em;
   margin-right: 0.5em;
 }
@@ -75,13 +75,18 @@
   margin-left: 1em;
 }
 
-.priceFooter {
-  padding: 1em;
-  border: 0.05em solid red;
+.priceTile {
+  border-radius: 8px;
+  overflow: hidden;
 }
 
-.priceFooter .warn {
-  color: red;
+.priceTile > h3 {
+  margin-top: 0;
+}
+
+.priceFooter {
+  padding: 0 1em 1em;
+  font-size: 0.9em;
 }
 
 .keyIndicator {

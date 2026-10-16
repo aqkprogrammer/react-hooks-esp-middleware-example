@@ -1,27 +1,35 @@
-import * as uuid from 'uuid';
-import produce from 'immer';
-import { types } from './types';
+import { produce } from 'immer';
+import { deleteKey, insertKey } from '../../../common/keys';
+import { types, type AccumulatorsAction } from './types';
 
 export interface AccumulatorsState {
-  modelId: string; // Each tile will need a model id to register with ESP
   accumulatorInput: string;
   accumulatorList: string[];
-  notionalField: any; // TODO: shortcode testing, 1M > 1,000,000 etc
+  /** Replaces the original `alert()` for duplicates. */
+  notice: string | null;
+  lastEspEvents: string[];
 }
 
 export const initialState: AccumulatorsState = {
-  modelId: `accumulators-id-${uuid.v4()}`,
   accumulatorInput: '',
   accumulatorList: ['Some Accumulator', 'Other Accumulator'],
-  notionalField: null,
+  notice: null,
+  lastEspEvents: [],
 };
 
-export const reducer = produce((draft, action) => {
-  console.log('Accumulators Reducer', {
-    oldState: JSON.stringify(draft),
-    type: action.type,
-    payload: action.payload,
-  });
+function add(draft: AccumulatorsState, accumulator: string) {
+  const value = accumulator.trim();
+  if (!value) return;
+  if (draft.accumulatorList.includes(value)) {
+    draft.notice = `"${value}" is already in the list`;
+    return;
+  }
+  draft.accumulatorList.push(value);
+  draft.notice = null;
+  if (value === draft.accumulatorInput.trim()) draft.accumulatorInput = '';
+}
+
+export const reducer = produce((draft: AccumulatorsState, action: AccumulatorsAction) => {
   switch (action.type) {
     case types.TYPING_ACCUMULATOR:
       draft.accumulatorInput = action.payload;
@@ -30,41 +38,25 @@ export const reducer = produce((draft, action) => {
       draft.accumulatorList = action.payload;
       return;
     case types.ADD_TO_ACCUMULATOR_LIST:
-      draft.accumulatorList.push(action.payload);
-      if (action.payload === draft.accumulatorInput) {
-        delete draft.accumulatorInput;
-      }
+      add(draft, action.payload);
       return;
     case types.REMOVE_FROM_ACCUMULATOR_LIST:
-      draft.accumulatorList = draft.accumulatorList.filter(
-        (accumulator) => accumulator !== action.payload,
-      );
+      draft.accumulatorList = draft.accumulatorList.filter((item) => item !== action.payload);
       return;
-    case types.common.KEY_PRESSED: {
-      console.log('acc - types.common.KEY_PRESSED', action.payload.key);
-      switch (action.payload.key) {
-        case 'Delete':
-          if (!draft.accumulatorList.length) {
-            return;
-          }
-          draft.accumulatorList.splice(0, 1);
-          return;
-        case 'Insert':
-          if (!draft.accumulatorInput) {
-            return;
-          }
-          draft.accumulatorList.push(draft.accumulatorInput);
-          delete draft.accumulatorInput;
-          return;
+    case types.DISMISS_NOTICE:
+      draft.notice = null;
+      return;
+    // Routed back from the esp-js router: Insert is *broadcast* (all tiles
+    // receive it), Delete is *published* (only this tile receives it).
+    case types.common.KEY_PRESSED:
+      if (action.payload.key === deleteKey) {
+        draft.accumulatorList.splice(0, 1);
+      } else if (action.payload.key === insertKey) {
+        add(draft, draft.accumulatorInput);
       }
       return;
-    }
     case types.esp.POSTPROCESS_ACTION:
-      const eventTypes: string[] = action.payload;
-      console.log('Accumulators Reducer opting in to handle esp.POSTPROCESS_ACTION');
-      if (eventTypes.indexOf(types.common.KEY_PRESSED) > -1) {
-        console.log('User pressed a key');
-      }
+      draft.lastEspEvents = action.payload;
       return;
   }
 });

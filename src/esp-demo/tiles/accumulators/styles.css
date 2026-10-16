@@ -26,7 +26,8 @@
   border: lightgreen 0.3em solid;
 }
 
-.accumulatorsTile > h1 {
+.accumulatorsTile > h3 {
+  margin-top: 0;
   font-size: 1.3em;
   padding: 0.3em;
   border-bottom: 0.2em solid rgba(0, 0, 0, 0.1);
@@ -36,7 +37,7 @@
   align-items: center;
 }
 
-.accumulatorsTile.loggedIn > h1 span {
+.accumulatorsTile.loggedIn > h3 span {
   font-size: 0.7em;
   margin-right: 0.5em;
 }
@@ -58,7 +59,7 @@
   padding: 0 1em 1em;
 }
 
-.accumulatorList h3 {
+.accumulatorList h4 {
   margin-top: 0;
 }
 
@@ -70,13 +71,18 @@
   margin-left: 1em;
 }
 
-.accumulatorsFooter {
-  padding: 1em;
-  border: 0.1em solid red;
+.accumulatorsTile {
+  border-radius: 8px;
+  overflow: hidden;
 }
 
-.accumulatorsFooter .warn {
-  color: red;
+.accumulatorsFooter {
+  padding: 0 1em 1em;
+  font-size: 0.9em;
+}
+
+.accumulatorNotice {
+  font-weight: 600;
 }
 
 .keyIndicator {

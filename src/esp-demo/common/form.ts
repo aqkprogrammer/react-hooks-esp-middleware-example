@@ -1,15 +1,3 @@
-export const resetForm = (form) => Object.values(form).forEach(({ reset }) => reset());
-
-/**
- * Not using this since I created the formValidationMiddleware
- */
-export const validateForm = (form) => {
-  let isValid = true;
-  Object.values(form).forEach(({ isEmpty, validate }) => {
-    validate();
-    if (isEmpty) {
-      isValid = false;
-    }
-  });
-  return isValid;
-};
+/** Resets every field of a form built from `useFormField` results. */
+export const resetForm = (form: Record<string, { reset: () => void }>) =>
+  Object.values(form).forEach(({ reset }) => reset());

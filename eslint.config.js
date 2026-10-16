@@ -45,6 +45,14 @@ export default tseslint.config(
     },
   },
   {
+    // The original esp-js demo keeps each store's context object, provider and
+    // consumer hook together in one `context.tsx` (its original structure).
+    // That only costs Fast Refresh granularity for these files (a full reload
+    // on edit), so the rule is relaxed here rather than splitting every store.
+    files: ['src/esp-demo/**/context/context.tsx'],
+    rules: { 'react-refresh/only-export-components': 'off' },
+  },
+  {
     // Tests and node-side tooling.
     files: ['**/*.test.{ts,tsx}', 'src/test/**', 'scripts/**', 'e2e/**', '*.config.{js,ts}'],
     languageOptions: { globals: { ...globals.node, ...globals.browser } },

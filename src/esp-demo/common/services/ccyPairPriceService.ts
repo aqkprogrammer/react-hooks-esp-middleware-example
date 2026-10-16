@@ -1,44 +1,49 @@
 /**
- * Fake service, 2 second ticks
+ * Fake price service: one tick every 2 seconds per subscribed currency pair.
+ * Prices are random — this is a simulation, not market data.
+ *
+ * Each tile now creates its own service instance, so two tiles can subscribe
+ * to the same pair independently (the original shared one module-level map).
  */
-import { Observable, of, never, timer } from 'rxjs';
-import { map, takeWhile, finalize } from 'rxjs/operators';
+import { NEVER, of, timer, type Observable } from 'rxjs';
+import { finalize, map, takeWhile } from 'rxjs/operators';
 
 export interface PriceTick {
   symbol: string;
   price: number;
 }
 
-let subscriptions = {};
+export interface CcyPairPriceService {
+  subscribe: (ccyPair: string) => Observable<PriceTick>;
+  unsubscribe: (ccyPair: string) => Observable<string>;
+  unsubscribeAll: () => Observable<string[]>;
+}
 
 const createPrice = (ccyPair: string): PriceTick => ({
   symbol: ccyPair,
-  price: Math.random() * 10,
+  price: Math.round(Math.random() * 10 * 10_000) / 10_000,
 });
 
-export const subscribe = (ccyPair: string): Observable<PriceTick> => {
-  if (subscriptions[ccyPair]) {
-    return never();
-  } else {
-    subscriptions[ccyPair] = true;
-    return timer(1, 2000).pipe(
-      takeWhile((v) => subscriptions[ccyPair]),
-      map(() => createPrice(ccyPair)),
-      finalize(() => console.warn('ccyPair obs completed: ' + ccyPair)),
-    );
-  }
-};
-
-export const unsubscribe = (ccyPair: string): Observable<string> => {
-  const sub = subscriptions[ccyPair];
-  if (sub) {
-    delete subscriptions[ccyPair];
-  }
-  return of(ccyPair);
-};
-
-export const unsubscribeAll = (): Observable<string[]> => {
-  const keys = Object.keys(subscriptions);
-  subscriptions = {};
-  return of(keys);
-};
+export function createCcyPairPriceService(tickMs = 2000): CcyPairPriceService {
+  const subscriptions = new Set<string>();
+  return {
+    subscribe(ccyPair) {
+      if (subscriptions.has(ccyPair)) return NEVER;
+      subscriptions.add(ccyPair);
+      return timer(1, tickMs).pipe(
+        takeWhile(() => subscriptions.has(ccyPair)),
+        map(() => createPrice(ccyPair)),
+        finalize(() => subscriptions.delete(ccyPair)),
+      );
+    },
+    unsubscribe(ccyPair) {
+      subscriptions.delete(ccyPair);
+      return of(ccyPair);
+    },
+    unsubscribeAll() {
+      const keys = [...subscriptions];
+      subscriptions.clear();
+      return of(keys);
+    },
+  };
+}

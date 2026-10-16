@@ -1,30 +1,38 @@
-import * as React from 'react';
-import { createContext, useContext, useReducer, useEffect } from 'react';
-import { reducer, initialState } from './reducers';
-import { useActions } from './actions';
-import { WorkspaceContext } from '../../../context/context';
-import { applyESPMiddleware } from '../../../common/middleware/espMiddleware';
+import { createContext, use, useMemo, type ReactNode } from 'react';
+import { useEspReducer, type EspStoreHandle } from '../../../../middleware/esp-js';
+import type { Dispatch } from '../../../../middleware/reducer/types';
+import { useEspTrace } from '../../../trace';
+import { createActions, type AccumulatorsActions } from './actions';
+import { initialState, reducer, type AccumulatorsState } from './reducers';
+import { types, type AccumulatorsAction, type AccumulatorsOwnAction } from './types';
 
-export const AccumulatorsContext = createContext(initialState);
+export interface AccumulatorsContextValue {
+  state: AccumulatorsState;
+  dispatch: Dispatch<AccumulatorsAction>;
+  actions: AccumulatorsActions;
+  esp: EspStoreHandle;
+}
 
-export const AccumulatorsProvider = ({ children }) => {
-  // Just getting the workspace here to ensure we can...
-  const workspace = useContext(WorkspaceContext);
-  // Note the dispatchs are chained together, one passed into the next
-  const [state, dispatch] = useReducer(reducer, initialState);
-  const [espDispatch, espDispose] = applyESPMiddleware(state.modelId, dispatch);
-  const actions = useActions(state, espDispatch);
+export const AccumulatorsContext = createContext<AccumulatorsContextValue | null>(null);
 
-  useEffect(() => {
-    console.log('AccumulatorsProvider', {
-      accumulatorsState: state,
-      workspaceContext: workspace,
-    });
-  }, [state, workspace]);
+export function useAccumulators(): AccumulatorsContextValue {
+  const value = use(AccumulatorsContext);
+  if (!value) throw new Error('useAccumulators must be used inside <AccumulatorsProvider>');
+  return value;
+}
 
-  return (
-    <AccumulatorsContext.Provider value={{ state, dispatch, actions }}>
-      {children}
-    </AccumulatorsContext.Provider>
+export const AccumulatorsProvider = ({ children }: { children: ReactNode }) => {
+  const trace = useEspTrace();
+  const [state, dispatch, esp] = useEspReducer<AccumulatorsState, AccumulatorsOwnAction>(
+    reducer,
+    initialState,
+    {
+      modelName: 'accumulators',
+      observedEvents: [types.common.KEY_PRESSED],
+      ...(trace ? { onStage: trace } : {}),
+    },
   );
+  const actions = useMemo(() => createActions(dispatch), [dispatch]);
+  const value = useMemo(() => ({ state, dispatch, actions, esp }), [state, dispatch, actions, esp]);
+  return <AccumulatorsContext value={value}>{children}</AccumulatorsContext>;
 };

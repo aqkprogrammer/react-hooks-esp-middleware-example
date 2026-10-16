@@ -1,37 +1,59 @@
-import * as React from 'react';
-import { createContext, useContext, useReducer, useEffect } from 'react';
-import { reducer, initialState, PriceState } from './reducers';
-import { types } from './types';
-import { useActions } from './actions';
-import { priceStreamHandlerMap } from './stream';
-import { useStream } from '../../../common/hooks/useStream';
-import { WorkspaceContext } from '../../../context/context';
-import { applyESPMiddleware } from '../../../common/middleware/espMiddleware';
+import { createContext, use, useEffect, useMemo, useState, type ReactNode } from 'react';
+import { useEspReducer } from '../../../../middleware/esp-js';
+import type { Dispatch } from '../../../../middleware/reducer/types';
+import { createStreamMiddleware } from '../../../common/middleware/streamMiddleware';
+import { createCcyPairPriceService } from '../../../common/services/ccyPairPriceService';
+import { useEspTrace } from '../../../trace';
+import { createActions, type PriceActions } from './actions';
+import { initialState, reducer, type PriceState } from './reducers';
+import { createPriceStreamHandlerMap } from './stream';
+import { types, type PriceAction, type PriceOwnAction } from './types';
 
-export const PriceContext = createContext(initialState);
+export interface PriceContextValue {
+  state: PriceState;
+  dispatch: Dispatch<PriceAction>;
+  actions: PriceActions;
+}
 
-export const PriceTileProvider = ({ children }) => {
-  // Just getting the workspace here to ensure we can...
-  const workspace = useContext(WorkspaceContext);
-  // Note the dispatchs are chained together, one passed into the next
-  const [state, dispatch] = useReducer(reducer, initialState);
-  const [espDispatch, espDispose] = applyESPMiddleware(state.modelId, dispatch);
-  const [streamDispatch] = useStream<PriceState>(
-    state,
-    espDispatch,
-    priceStreamHandlerMap,
-    types.UNSUBSCRIBE_ALL_PRICES,
+export const PriceContext = createContext<PriceContextValue | null>(null);
+
+export function usePriceTile(): PriceContextValue {
+  const value = use(PriceContext);
+  if (!value) throw new Error('usePriceTile must be used inside <PriceTileProvider>');
+  return value;
+}
+
+export const PriceTileProvider = ({
+  children,
+  tickMs = 2000,
+}: {
+  children: ReactNode;
+  /** Price tick interval (tests use a shorter one). */
+  tickMs?: number;
+}) => {
+  const trace = useEspTrace();
+  // One price service + stream middleware per tile instance.
+  const [streams] = useState(() =>
+    createStreamMiddleware<PriceState, PriceAction>(
+      createPriceStreamHandlerMap(createCcyPairPriceService(tickMs)),
+      {
+        cancelAllActionType: types.UNSUBSCRIBE_ALL_PRICES,
+        toError: (error) => ({ type: types.stream.ERROR, payload: String(error) }),
+      },
+    ),
   );
-  const actions = useActions(state, streamDispatch);
+  // Note the middleware are chained together: streams → esp → reducer.
+  const [state, dispatch] = useEspReducer<PriceState, PriceOwnAction>(reducer, initialState, {
+    modelName: 'price-tile',
+    observedEvents: [types.common.KEY_PRESSED],
+    middleware: [streams.middleware],
+    ...(trace ? { onStage: trace } : {}),
+  });
 
-  useEffect(() => {
-    console.log('PriceTileProvider', {
-      priceState: state,
-      workspaceContext: workspace,
-    });
-  }, [state, workspace]);
+  // Stop every price stream when the tile unmounts.
+  useEffect(() => streams.dispose, [streams]);
 
-  return (
-    <PriceContext.Provider value={{ state, dispatch, actions }}>{children}</PriceContext.Provider>
-  );
+  const actions = useMemo(() => createActions(dispatch), [dispatch]);
+  const value = useMemo(() => ({ state, dispatch, actions }), [state, dispatch, actions]);
+  return <PriceContext value={value}>{children}</PriceContext>;
 };

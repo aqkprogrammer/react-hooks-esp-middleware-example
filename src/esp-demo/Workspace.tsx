@@ -1,89 +1,95 @@
-import * as React from 'react';
-import { useContext } from 'react';
 import cn from 'classnames';
-import { WorkspaceContext } from './context/context';
-import { types } from './context/types';
+import type { FormEvent, ReactNode } from 'react';
+import { resetForm } from './common/form';
 import useFormField from './common/hooks/useFormField';
-import { resetForm, validateForm } from './common/form';
+import { useWorkspace } from './context/context';
+import { themes } from './context/types';
 import './styles.css';
 
-export function Workspace({ children }) {
+export function Workspace({ children }: { children: ReactNode }) {
   // useContext is like a dependency injector
-  const { state, actions } = useContext(WorkspaceContext);
+  const { state, actions } = useWorkspace();
   const { forms } = state;
   const loginForm = {
     username: useFormField(forms.login.username.input, (value) => {
-      // actions.typingUsername(value);
-      actions.typing(value, 'username', 'login');
+      actions.typing(value, 'username');
     }),
     password: useFormField(forms.login.password.input, (value) => {
-      // actions.typingPassword(value);
-      actions.typing(value, 'password', 'login');
+      actions.typing(value, 'password');
     }),
   };
-  const loginDisabled = loginForm.username.isEmpty || loginForm.password.isEmpty;
+  const loginDisabled =
+    loginForm.username.isEmpty || loginForm.password.isEmpty || state.loginStatus === 'pending';
   const loginFormError = forms.login.errors.length > 0;
   const usernameError = forms.login.username.errors.length > 0;
   const passwordError = forms.login.password.errors.length > 0;
   const workspaceClassName = cn('workspace', state.themeClassName);
-  const usernameInputClassName = cn({ inputError: usernameError });
-  const passwordInputClassName = cn({ inputError: passwordError });
 
-  const onLoginRequest = (event) => {
+  const onLoginRequest = (event: FormEvent) => {
     event.preventDefault();
-    // Created middleware for this now...
-    // if (!validateForm(loginForm)) {
-    //   console.warn("Form invalid");
-    //   return;
-    // }
-    actions.triggerAction(
-      {
-        username: loginForm.username.value,
-        password: loginForm.password.value,
-      },
-      types.auth.LOGIN_REQUEST_ACTION,
-    );
+    // Validation happens in middleware (formValidationMiddleware).
+    actions.login(loginForm.username.value, loginForm.password.value);
     resetForm(loginForm);
   };
 
-  const onLogoutRequest = (event) => {
-    event.preventDefault();
-    actions.triggerAction(null, types.auth.LOGOUT_REQUEST_ACTION);
+  const onLogoutRequest = () => {
+    actions.logout();
     resetForm(loginForm);
   };
 
   return (
     <div className={workspaceClassName}>
-      <h1>Fake Workspace & dtp-client-functional-package combo</h1>
-      <form className="workspaceForm">
+      <h2 className="workspaceTitle">Fake Workspace &amp; functional-package combo</h2>
+      <form className="workspaceForm" onSubmit={onLoginRequest} noValidate>
         <fieldset className="login">
-          <p>Fake login in which a tile may want to react to.</p>
+          <legend>Login</legend>
+          <p>
+            Fake login that tiles react to. Any credentials work except the password{' '}
+            <code>wrong</code> (mocked <code>/api/login</code>).
+          </p>
           {!state.userToken && (
             <>
+              <label className="visually-hidden" htmlFor="esp-username">
+                Username
+              </label>
               <input
-                className={usernameInputClassName}
+                id="esp-username"
+                className={cn({ inputError: usernameError })}
                 name="usernameInput"
                 placeholder="Any Username"
-                title={forms.login.username.errors.join(', ')}
+                autoComplete="username"
+                aria-invalid={usernameError || undefined}
+                aria-describedby={loginFormError ? 'esp-login-errors' : undefined}
                 {...loginForm.username.bind}
               />
+              <label className="visually-hidden" htmlFor="esp-password">
+                Password
+              </label>
               <input
-                className={passwordInputClassName}
+                id="esp-password"
+                className={cn({ inputError: passwordError })}
                 name="passwordInput"
                 placeholder="Any Password"
                 type="password"
-                title={forms.login.password.errors.join(', ')}
+                autoComplete="current-password"
+                aria-invalid={passwordError || undefined}
+                aria-describedby={loginFormError ? 'esp-login-errors' : undefined}
                 {...loginForm.password.bind}
               />
-              <button type="submit" disabled={loginDisabled} onClick={onLoginRequest}>
-                Login
+              <button type="submit" disabled={loginDisabled}>
+                {state.loginStatus === 'pending' ? 'Logging in…' : 'Login'}
               </button>
               {loginFormError && (
-                <ul className="errorList">
-                  {forms.login.errors.map((error: string) => (
+                <ul className="errorList" id="esp-login-errors">
+                  {forms.login.errors.map((error) => (
                     <li key={error}>{error}</li>
                   ))}
                 </ul>
+              )}
+              {state.loginError && (
+                <p className="errorList" role="alert">
+                  {state.loginError}
+                </p>
               )}
             </>
           )}
@@ -97,19 +103,23 @@ export function Workspace({ children }) {
           )}
         </fieldset>
         <fieldset className="theme">
-          <span>Theme:</span>
-          <button className="internal" type="button" onClick={() => actions.setTheme('internal')}>
-            Internal
-          </button>
-          <button className="external" type="button" onClick={() => actions.setTheme('external')}>
-            External
-          </button>
-          <button className="badger" type="button" onClick={() => actions.setTheme('badger')}>
-            Badger
-          </button>
+          <legend>Theme</legend>
+          {themes.map((theme) => (
+            <button
+              key={theme}
+              className={theme}
+              type="button"
+              aria-pressed={state.themeClassName === theme}
+              onClick={() => actions.setTheme(theme)}
+            >
+              {theme[0]!.toUpperCase() + theme.slice(1)}
+            </button>
+          ))}
         </fieldset>
       </form>
-      <section className="workspaceTiles">{children}</section>
+      <section className="workspaceTiles" aria-label="Tiles">
+        {children}
+      </section>
     </div>
   );
 }
