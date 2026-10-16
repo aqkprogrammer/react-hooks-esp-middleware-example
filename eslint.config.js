@@ -36,6 +36,10 @@ export default tseslint.config(
       // Compiler-powered rules (purity, refs, set-state-in-effect, ...).
       ...reactHooks.configs['recommended-latest'].rules,
       ...jsxA11y.flatConfigs.recommended.rules,
+      // Scrollable regions (code blocks, wide tables) must be keyboard
+      // focusable (axe: scrollable-region-focusable); allow tabIndex on
+      // elements explicitly given role="region" or "tabpanel".
+      'jsx-a11y/no-noninteractive-tabindex': ['error', { tags: [], roles: ['tabpanel', 'region'] }],
       'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
       '@typescript-eslint/no-unused-vars': [
         'error',
