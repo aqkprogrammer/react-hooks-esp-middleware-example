@@ -1,0 +1,60 @@
+/* View Transition classes used by ViewTransitionDemo (applied via view-transition-class). */
+
+.vt-stage {
+  overflow: hidden;
+}
+
+.vt-slide {
+  min-height: 8rem;
+}
+
+.vt-title {
+  margin: 0.25rem 0;
+  font-size: 1.15rem;
+}
+
+@keyframes vt-slide-in-right {
+  from {
+    transform: translateX(60%);
+    opacity: 0;
+  }
+}
+@keyframes vt-slide-in-left {
+  from {
+    transform: translateX(-60%);
+    opacity: 0;
+  }
+}
+@keyframes vt-slide-out-left {
+  to {
+    transform: translateX(-60%);
+    opacity: 0;
+  }
+}
+@keyframes vt-slide-out-right {
+  to {
+    transform: translateX(60%);
+    opacity: 0;
+  }
+}
+
+::view-transition-new(.vt-from-right) {
+  animation: vt-slide-in-right 280ms ease-out;
+}
+::view-transition-new(.vt-from-left) {
+  animation: vt-slide-in-left 280ms ease-out;
+}
+::view-transition-old(.vt-to-left) {
+  animation: vt-slide-out-left 280ms ease-in;
+}
+::view-transition-old(.vt-to-right) {
+  animation: vt-slide-out-right 280ms ease-in;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
+  }
+}

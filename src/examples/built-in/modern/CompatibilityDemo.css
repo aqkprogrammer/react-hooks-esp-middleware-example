@@ -1,0 +1,29 @@
+.compat-table-wrap {
+  overflow-x: auto;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--bg-elevated);
+}
+
+.compat-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+.compat-table th,
+.compat-table td {
+  padding: 0.4rem 0.6rem;
+  border-bottom: 1px solid var(--border);
+  text-align: left;
+  vertical-align: top;
+}
+
+.compat-table thead th {
+  background: var(--bg-sunken);
+  white-space: nowrap;
+}
+
+.compat-table tbody tr:last-child > * {
+  border-bottom: none;
+}
