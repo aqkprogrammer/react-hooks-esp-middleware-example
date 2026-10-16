@@ -1,0 +1,36 @@
+.debounce-vs-throttle-surface {
+  min-height: 120px;
+  touch-action: none;
+  user-select: none;
+}
+.debounce-vs-throttle-track {
+  position: relative;
+  height: 1.6rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--bg-sunken);
+  overflow: hidden;
+}
+.debounce-vs-throttle-tick {
+  position: absolute;
+  top: 0.2rem;
+  bottom: 0.2rem;
+  width: 3px;
+  margin-left: -1px;
+  border-radius: 2px;
+}
+.debounce-vs-throttle-raw {
+  background: var(--fg-muted);
+}
+.debounce-vs-throttle-debounced {
+  background: var(--accent);
+}
+.debounce-vs-throttle-throttled {
+  background: var(--success);
+}
+.debounce-vs-throttle-row {
+  display: grid;
+  grid-template-columns: 7.5rem 1fr 3rem;
+  align-items: center;
+  gap: 0.5rem;
+}
