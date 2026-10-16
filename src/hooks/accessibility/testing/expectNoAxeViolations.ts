@@ -6,13 +6,11 @@ import { expect } from 'vitest';
  * list of violations. Page-level rules (`region`) and rules jsdom cannot
  * evaluate (`color-contrast`, which needs layout) are disabled.
  *
- * The shared UI kit's `<EventLog>` (`.event-log`) is excluded by default: it
- * is not part of the hooks under test, and its `<ol role="log">` currently
- * trips `aria-allowed-role`/`listitem` (reported separately).
+ * Pass CSS selectors in `exclude` to skip parts of the tree.
  */
 export async function expectNoAxeViolations(
   container: Element,
-  exclude: string[] = ['.event-log'],
+  exclude: string[] = [],
 ): Promise<void> {
   const context: axe.ElementContext = {
     include: [container],

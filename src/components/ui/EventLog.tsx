@@ -18,14 +18,16 @@ export function EventLog({ entries, onClear, title = 'Event log' }: EventLogProp
           </Button>
         ) : null}
       </div>
-      <ol className="event-log-list" role="log" aria-label={title}>
-        {entries.length === 0 ? <li className="muted">Nothing logged yet.</li> : null}
-        {entries.map((entry) => (
-          <li key={entry.id} className={`log-${entry.tone ?? 'info'}`}>
-            <span className="log-time">{entry.time}</span> {entry.message}
-          </li>
-        ))}
-      </ol>
+      <div role="log" aria-label={title} className="event-log-region">
+        <ol className="event-log-list">
+          {entries.length === 0 ? <li className="muted">Nothing logged yet.</li> : null}
+          {entries.map((entry) => (
+            <li key={entry.id} className={`log-${entry.tone ?? 'info'}`}>
+              <span className="log-time">{entry.time}</span> {entry.message}
+            </li>
+          ))}
+        </ol>
+      </div>
     </div>
   );
 }

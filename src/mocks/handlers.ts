@@ -297,7 +297,12 @@ const coreHandlers: Array<RequestHandler | WebSocketHandler> = [
 ];
 
 type HandlerModule = { handlers?: Array<RequestHandler | WebSocketHandler> };
-const extraModules = import.meta.glob<HandlerModule>('./extra/*.ts', { eager: true });
+// Keep the literal `import.meta.glob(` text: Vitest only skips its module
+// cache for files containing it, and a type argument would hide it.
+const extraModules = import.meta.glob('./extra/*.ts', { eager: true }) as Record<
+  string,
+  HandlerModule
+>;
 const extraHandlers = Object.values(extraModules).flatMap((module) => module.handlers ?? []);
 
 export const handlers: Array<RequestHandler | WebSocketHandler> = [
