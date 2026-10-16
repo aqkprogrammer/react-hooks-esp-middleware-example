@@ -1,0 +1,27 @@
+name: New hook or example
+description: Propose a custom hook, scenario or documentation page
+labels: [enhancement]
+body:
+  - type: input
+    id: name
+    attributes:
+      label: Name
+      placeholder: useSomething / "Scenario: ..."
+    validations:
+      required: true
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem it solves
+      description: Why is this useful, and why isn't an existing hook, a built-in API or a mature library enough?
+    validations:
+      required: true
+  - type: textarea
+    id: api
+    attributes:
+      label: Proposed API
+      render: ts
+  - type: textarea
+    id: support
+    attributes:
+      label: Browser support / SSR considerations
