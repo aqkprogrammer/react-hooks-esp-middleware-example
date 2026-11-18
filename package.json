@@ -47,7 +47,7 @@
     "@reduxjs/toolkit": "^2.13.0",
     "@tanstack/react-query": "^5.104.3",
     "classnames": "^2.5.1",
-    "esp-js": "^8.1.0",
+    "esp-js": "^9.0.0",
     "immer": "^11.1.21",
     "jotai": "^3.0.1",
     "react": "^19.3.1",
